@@ -1,0 +1,51 @@
+{
+  "description": "The same `price >= 1000` predicate as om-orders-price-at-least-1000, but as a constraint instead of a filter: every order is still a situation and the ones below the threshold are violations. Mirrors the e2e constraint journey.",
+  "expected": [
+    {
+      "reasons": {
+        "ConstraintNotSatisfied(0)": 538
+      },
+      "situations": 2000,
+      "violated": 538
+    }
+  ],
+  "ocel": "order-management.xml.gz",
+  "tree": {
+    "edgeNames": [],
+    "nodes": [
+      {
+        "Box": [
+          {
+            "constraints": [
+              {
+                "filter": {
+                  "at_time": {
+                    "type": "Sometime"
+                  },
+                  "attribute_name": "price",
+                  "object": 0,
+                  "type": "ObjectAttributeValueFilter",
+                  "value_filter": {
+                    "max": null,
+                    "min": 1000.0,
+                    "type": "Float"
+                  }
+                },
+                "type": "Filter"
+              }
+            ],
+            "filters": [],
+            "newEventVars": {},
+            "newObjectVars": {
+              "0": [
+                "orders"
+              ]
+            },
+            "sizeFilters": []
+          },
+          []
+        ]
+      }
+    ]
+  }
+}

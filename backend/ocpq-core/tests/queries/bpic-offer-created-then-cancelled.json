@@ -1,0 +1,58 @@
+{
+  "description": "O_Created followed by O_Cancelled on the same Offer within a window. Single box, no children: pins the plain O2E + TimeBetweenEvents binding count.",
+  "expected": [
+    {
+      "situations": 20898,
+      "violated": 0
+    }
+  ],
+  "ocel": "bpic2017.xml.gz",
+  "tree": {
+    "edgeNames": [],
+    "nodes": [
+      {
+        "Box": [
+          {
+            "constraints": [],
+            "filters": [
+              {
+                "event": 0,
+                "object": 0,
+                "qualifier": null,
+                "type": "O2E"
+              },
+              {
+                "event": 1,
+                "object": 0,
+                "qualifier": null,
+                "type": "O2E"
+              },
+              {
+                "from_event": 0,
+                "max_seconds": null,
+                "min_seconds": 0.001,
+                "to_event": 1,
+                "type": "TimeBetweenEvents"
+              }
+            ],
+            "newEventVars": {
+              "0": [
+                "O_Created"
+              ],
+              "1": [
+                "O_Cancelled"
+              ]
+            },
+            "newObjectVars": {
+              "0": [
+                "Offer"
+              ]
+            },
+            "sizeFilters": []
+          },
+          []
+        ]
+      }
+    ]
+  }
+}

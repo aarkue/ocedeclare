@@ -1,0 +1,149 @@
+{
+  "description": "AND over two children judging the same `place` event. o2 fails the channel branch, o3 the amount branch. o5 has no place event at all, and an empty child set counts as satisfied for AND.",
+  "expected": [
+    {
+      "reasons": {
+        "ConstraintNotSatisfied(0)": 2
+      },
+      "situations": 5,
+      "violated": 2
+    },
+    {
+      "reasons": {
+        "ConstraintNotSatisfied(0)": 1
+      },
+      "situations": 4,
+      "violated": 1
+    },
+    {
+      "reasons": {
+        "ConstraintNotSatisfied(0)": 1
+      },
+      "situations": 4,
+      "violated": 1
+    }
+  ],
+  "ocel": "edge-cases.json",
+  "tree": {
+    "edgeNames": [
+      [
+        [
+          0,
+          1
+        ],
+        "A"
+      ],
+      [
+        [
+          0,
+          2
+        ],
+        "B"
+      ]
+    ],
+    "nodes": [
+      {
+        "Box": [
+          {
+            "constraints": [
+              {
+                "child_names": [
+                  "A",
+                  "B"
+                ],
+                "type": "AND"
+              }
+            ],
+            "filters": [],
+            "newEventVars": {},
+            "newObjectVars": {
+              "0": [
+                "order"
+              ]
+            },
+            "sizeFilters": []
+          },
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      {
+        "Box": [
+          {
+            "constraints": [
+              {
+                "filter": {
+                  "attribute_name": "amount",
+                  "event": 1,
+                  "type": "EventAttributeValueFilter",
+                  "value_filter": {
+                    "max": null,
+                    "min": 100,
+                    "type": "Integer"
+                  }
+                },
+                "type": "Filter"
+              }
+            ],
+            "filters": [
+              {
+                "event": 1,
+                "object": 0,
+                "qualifier": null,
+                "type": "O2E"
+              }
+            ],
+            "newEventVars": {
+              "1": [
+                "place"
+              ]
+            },
+            "newObjectVars": {},
+            "sizeFilters": []
+          },
+          []
+        ]
+      },
+      {
+        "Box": [
+          {
+            "constraints": [
+              {
+                "filter": {
+                  "attribute_name": "channel",
+                  "event": 1,
+                  "type": "EventAttributeValueFilter",
+                  "value_filter": {
+                    "is_in": [
+                      "web"
+                    ],
+                    "type": "String"
+                  }
+                },
+                "type": "Filter"
+              }
+            ],
+            "filters": [
+              {
+                "event": 1,
+                "object": 0,
+                "qualifier": null,
+                "type": "O2E"
+              }
+            ],
+            "newEventVars": {
+              "1": [
+                "place"
+              ]
+            },
+            "newObjectVars": {},
+            "sizeFilters": []
+          },
+          []
+        ]
+      }
+    ]
+  }
+}

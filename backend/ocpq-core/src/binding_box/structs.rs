@@ -88,14 +88,14 @@ pub enum LabelValue {
     Null,
 }
 
-impl LabelValue {
-    pub fn to_string(&self) -> String {
+impl std::fmt::Display for LabelValue {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            LabelValue::String(arc) => arc.to_string(),
-            LabelValue::Int(i) => i.to_string(),
-            LabelValue::Float(f) => f.to_string(),
-            LabelValue::Bool(b) => b.to_string(),
-            LabelValue::Null => "null".to_string(),
+            LabelValue::String(arc) => write!(f, "{arc}"),
+            LabelValue::Int(i) => write!(f, "{i}"),
+            LabelValue::Float(fl) => write!(f, "{fl}"),
+            LabelValue::Bool(b) => write!(f, "{b}"),
+            LabelValue::Null => write!(f, "null"),
         }
     }
 }
@@ -423,6 +423,9 @@ impl BindingBoxTree {
 #[derive(TS)]
 #[ts(export)]
 #[derive(Debug, Clone, Serialize, Deserialize, JsonSchema)]
+// Boxing the large variant would add an indirection on the evaluation hot path to save memory a
+// tree of a few dozen nodes never needs.
+#[allow(clippy::large_enum_variant)]
 pub enum BindingBoxTreeNode {
     Box(BindingBox, Vec<usize>),
     OR(usize, usize),
@@ -501,12 +504,15 @@ pub enum ViolationReason {
 
 pub type EvaluationResult = (usize, std::sync::Arc<Binding>, Option<ViolationReason>);
 pub type EvaluationResults = Vec<EvaluationResult>;
+pub type BindingViolations = Vec<(std::sync::Arc<Binding>, Option<ViolationReason>)>;
+pub type ChildResults = HashMap<String, BindingViolations>;
+pub type NodeEvaluation = ((EvaluationResults, BindingViolations), bool);
 use rayon::prelude::*;
 
 fn check_constraints(
     constraints: &[Constraint],
     binding: &Binding,
-    child_res: &HashMap<String, Vec<(std::sync::Arc<Binding>, Option<ViolationReason>)>>,
+    child_res: &ChildResults,
     ocel: &SlimLinkedOCEL,
 ) -> Result<Option<ViolationReason>, String> {
     for (constr_index, constr) in constraints.iter().enumerate() {
@@ -727,16 +733,7 @@ impl BindingBoxTreeNode {
         tree: &BindingBoxTree,
         ocel: &SlimLinkedOCEL,
         step_cache: &[Vec<BindingStep>],
-    ) -> Result<
-        (
-            (
-                EvaluationResults,
-                Vec<(std::sync::Arc<Binding>, Option<ViolationReason>)>,
-            ),
-            bool,
-        ),
-        String,
-    > {
+    ) -> Result<NodeEvaluation, String> {
         self.evaluate_in_place(own_index, &mut parent_binding, tree, ocel, step_cache)
     }
 
@@ -747,16 +744,7 @@ impl BindingBoxTreeNode {
         tree: &BindingBoxTree,
         ocel: &SlimLinkedOCEL,
         step_cache: &[Vec<BindingStep>],
-    ) -> Result<
-        (
-            (
-                EvaluationResults,
-                Vec<(std::sync::Arc<Binding>, Option<ViolationReason>)>,
-            ),
-            bool,
-        ),
-        String,
-    > {
+    ) -> Result<NodeEvaluation, String> {
         use std::sync::Arc;
         let (bbox, children) = self.to_box(own_index, tree);
         let child_edges: Vec<(usize, String)> = children
@@ -847,6 +835,7 @@ impl BindingBoxTreeNode {
         ))
     }
 
+    #[allow(clippy::too_many_arguments)]
     fn evaluate_no_descendants_binding(
         &self,
         bbox: &BindingBox,
@@ -863,7 +852,7 @@ impl BindingBoxTreeNode {
             ChildDemand::Full => {
                 let mut child_res = HashMap::with_capacity(child_edges.len());
                 for (c, c_name) in child_edges {
-                    let mut violations: Vec<(Arc<Binding>, Option<ViolationReason>)> = Vec::new();
+                    let mut violations: BindingViolations = Vec::new();
                     let mut child_sink =
                         |bd: Arc<Binding>, vr: Option<ViolationReason>| -> Result<(), String> {
                             violations.push((bd, vr));
@@ -1291,7 +1280,6 @@ impl Filter {
 #[derive(TS, Debug, Clone, Serialize, Deserialize, JsonSchema)]
 #[ts(export)]
 #[serde(tag = "type")]
-
 pub enum ValueFilter {
     Float {
         min: Option<f64>,
@@ -1399,7 +1387,7 @@ impl SizeFilter {
     pub fn check(
         &self,
         binding: &Binding,
-        child_res: &HashMap<String, Vec<(std::sync::Arc<Binding>, Option<ViolationReason>)>>,
+        child_res: &ChildResults,
         ocel: &SlimLinkedOCEL,
     ) -> Result<bool, String> {
         match self {

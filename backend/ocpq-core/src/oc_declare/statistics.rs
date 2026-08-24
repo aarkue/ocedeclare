@@ -296,12 +296,12 @@ fn bin_durations(durations: &[i64]) -> BinnedEdgeDurationStats {
     let mut percentages = Vec::new();
     let mut bin_labels = Vec::new();
 
-    for i in 0..bin_count {
-        if bins[i] > 0 {
+    for (i, &count) in bins.iter().enumerate().take(bin_count) {
+        if count > 0 {
             let bin_start = chart_min + i as f64 * bin_size;
             let bin_end = bin_start + bin_size;
             bin_centers_ms.push(bin_start + bin_size / 2.0);
-            percentages.push((bins[i] as f64 / total_count as f64) * 100.0);
+            percentages.push((count as f64 / total_count as f64) * 100.0);
             bin_labels.push(format!(
                 "[{:.prec$}, {:.prec$})",
                 bin_start,

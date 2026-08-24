@@ -1,4 +1,5 @@
 import { type Edge, MarkerType, type Node } from "@xyflow/react";
+import { v4 } from "uuid";
 import type { BindingBoxTree } from "@/types/generated/BindingBoxTree";
 import { EVENT_TYPE_LINK_TYPE, EVENT_TYPE_NODE_TYPE, GATE_NODE_TYPE } from "./const";
 import type { EventTypeLinkData, EventTypeNodeData, GateNodeData } from "./types";
@@ -233,4 +234,24 @@ export function bindingBoxTreeToNodes(
 		edges.push(...e1);
 	}
 	return [nodes, edges];
+}
+
+/** An empty box at `position`, the shape both "Add Node" and a freshly created query start from. */
+export function emptyBoxNode(position: { x: number; y: number }): Node<EventTypeNodeData> {
+	return {
+		id: v4(),
+		type: EVENT_TYPE_NODE_TYPE,
+		position,
+		data: {
+			box: {
+				newEventVars: {},
+				newObjectVars: {},
+				filters: [],
+				sizeFilters: [],
+				constraints: [],
+				evVarLabels: {},
+				obVarLabels: {},
+			},
+		},
+	};
 }

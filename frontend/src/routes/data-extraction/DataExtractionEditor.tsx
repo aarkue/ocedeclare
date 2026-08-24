@@ -66,7 +66,7 @@ export default function DataExtractionEditor({
 				return { ocelHandle: "loaded OCEL", report };
 			},
 		}),
-		[backend, invalidateOcel],
+		[backend, invalidateOcel, connectionKindAvailability],
 	);
 
 	return (

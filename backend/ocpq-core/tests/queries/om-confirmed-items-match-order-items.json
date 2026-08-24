@@ -1,0 +1,135 @@
+{
+  "description": "Every order's own items must equal the items on its confirming event, via BindingSetProjectionEqual over the two children's object variable. As a constraint, so a projection that stopped matching shows up as violations instead of as an empty result.",
+  "expected": [
+    {
+      "situations": 2000,
+      "violated": 0
+    },
+    {
+      "situations": 7659,
+      "violated": 0
+    },
+    {
+      "situations": 7659,
+      "violated": 0
+    }
+  ],
+  "ocel": "order-management.xml.gz",
+  "tree": {
+    "edgeNames": [
+      [
+        [
+          0,
+          1
+        ],
+        "A"
+      ],
+      [
+        [
+          0,
+          2
+        ],
+        "B"
+      ]
+    ],
+    "nodes": [
+      {
+        "Box": [
+          {
+            "constraints": [
+              {
+                "filter": {
+                  "child_name_with_var_name": [
+                    [
+                      "A",
+                      {
+                        "Object": 1
+                      }
+                    ],
+                    [
+                      "B",
+                      {
+                        "Object": 1
+                      }
+                    ]
+                  ],
+                  "type": "BindingSetProjectionEqual"
+                },
+                "type": "SizeFilter"
+              }
+            ],
+            "filters": [
+              {
+                "event": 0,
+                "object": 0,
+                "qualifier": null,
+                "type": "O2E"
+              }
+            ],
+            "newEventVars": {
+              "0": [
+                "confirm order"
+              ]
+            },
+            "newObjectVars": {
+              "0": [
+                "orders"
+              ]
+            },
+            "sizeFilters": []
+          },
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      {
+        "Box": [
+          {
+            "constraints": [],
+            "filters": [
+              {
+                "object": 0,
+                "other_object": 1,
+                "qualifier": null,
+                "type": "O2O"
+              }
+            ],
+            "newEventVars": {},
+            "newObjectVars": {
+              "1": [
+                "items"
+              ]
+            },
+            "sizeFilters": []
+          },
+          []
+        ]
+      },
+      {
+        "Box": [
+          {
+            "constraints": [],
+            "filters": [
+              {
+                "event": 0,
+                "object": 1,
+                "qualifier": null,
+                "type": "O2E"
+              }
+            ],
+            "newEventVars": {},
+            "newObjectVars": {
+              "1": [
+                "items"
+              ]
+            },
+            "sizeFilters": []
+          },
+          []
+        ]
+      }
+    ]
+  }
+}

@@ -80,7 +80,10 @@ export function getPossibleE2OVariables(
 			}
 		}
 	}
-	return {};
+	// Every supported pair is already filtered on somewhere in the tree. Reuse one anyway: a sibling
+	// box scopes its own variables and needs the same pair. Returning nothing leaves the editor with
+	// unset variables and a disabled submit, with nothing saying why.
+	return backup ?? {};
 }
 
 export function getPossibleO2OVariables(
@@ -146,5 +149,6 @@ export function getPossibleO2OVariables(
 			}
 		}
 	}
-	return {};
+	// Same fallback as the E2O case: an already-used pair beats leaving the editor unusable.
+	return backup ?? {};
 }

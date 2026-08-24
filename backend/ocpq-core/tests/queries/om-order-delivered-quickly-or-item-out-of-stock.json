@@ -1,0 +1,238 @@
+{
+  "description": "Every placed order either has its package delivered within 14 days, or has an item that went out of stock. Covers a child box introducing two object variables at once and named edges with spaces.",
+  "expected": [
+    {
+      "reasons": {
+        "ConstraintNotSatisfied(0)": 43
+      },
+      "situations": 2000,
+      "violated": 43
+    },
+    {
+      "reasons": {
+        "ConstraintNotSatisfied(0)": 968
+      },
+      "situations": 7659,
+      "violated": 968
+    },
+    {
+      "situations": 6691,
+      "violated": 0
+    },
+    {
+      "reasons": {
+        "ConstraintNotSatisfied(0)": 919
+      },
+      "situations": 2000,
+      "violated": 919
+    },
+    {
+      "situations": 1544,
+      "violated": 0
+    }
+  ],
+  "ocel": "order-management.xml.gz",
+  "tree": {
+    "edgeNames": [
+      [
+        [
+          0,
+          1
+        ],
+        "A"
+      ],
+      [
+        [
+          3,
+          4
+        ],
+        "Out Of Stock Items"
+      ],
+      [
+        [
+          1,
+          2
+        ],
+        "Quick Deliveries"
+      ],
+      [
+        [
+          0,
+          3
+        ],
+        "B"
+      ]
+    ],
+    "nodes": [
+      {
+        "Box": [
+          {
+            "constraints": [
+              {
+                "child_names": [
+                  "A",
+                  "B"
+                ],
+                "type": "OR"
+              }
+            ],
+            "filters": [
+              {
+                "event": 0,
+                "object": 0,
+                "qualifier": null,
+                "type": "O2E"
+              }
+            ],
+            "newEventVars": {
+              "0": [
+                "place order"
+              ]
+            },
+            "newObjectVars": {
+              "0": [
+                "orders"
+              ]
+            },
+            "sizeFilters": []
+          },
+          [
+            1,
+            3
+          ]
+        ]
+      },
+      {
+        "Box": [
+          {
+            "constraints": [
+              {
+                "filter": {
+                  "child_name": "Quick Deliveries",
+                  "max": 1,
+                  "min": 1,
+                  "type": "NumChilds"
+                },
+                "type": "SizeFilter"
+              }
+            ],
+            "filters": [
+              {
+                "object": 0,
+                "other_object": 1,
+                "qualifier": null,
+                "type": "O2O"
+              },
+              {
+                "object": 2,
+                "other_object": 1,
+                "qualifier": null,
+                "type": "O2O"
+              }
+            ],
+            "newEventVars": {},
+            "newObjectVars": {
+              "1": [
+                "items"
+              ],
+              "2": [
+                "packages"
+              ]
+            },
+            "sizeFilters": []
+          },
+          [
+            2
+          ]
+        ]
+      },
+      {
+        "Box": [
+          {
+            "constraints": [],
+            "filters": [
+              {
+                "event": 1,
+                "object": 2,
+                "qualifier": null,
+                "type": "O2E"
+              },
+              {
+                "from_event": 0,
+                "max_seconds": 1209600.0,
+                "min_seconds": 0.0,
+                "to_event": 1,
+                "type": "TimeBetweenEvents"
+              }
+            ],
+            "newEventVars": {
+              "1": [
+                "package delivered"
+              ]
+            },
+            "newObjectVars": {},
+            "sizeFilters": []
+          },
+          []
+        ]
+      },
+      {
+        "Box": [
+          {
+            "constraints": [
+              {
+                "filter": {
+                  "child_name": "Out Of Stock Items",
+                  "max": null,
+                  "min": 1,
+                  "type": "NumChilds"
+                },
+                "type": "SizeFilter"
+              }
+            ],
+            "filters": [],
+            "newEventVars": {},
+            "newObjectVars": {},
+            "sizeFilters": []
+          },
+          [
+            4
+          ]
+        ]
+      },
+      {
+        "Box": [
+          {
+            "constraints": [],
+            "filters": [
+              {
+                "object": 0,
+                "other_object": 1,
+                "qualifier": null,
+                "type": "O2O"
+              },
+              {
+                "event": 1,
+                "object": 1,
+                "qualifier": null,
+                "type": "O2E"
+              }
+            ],
+            "newEventVars": {
+              "1": [
+                "item out of stock"
+              ]
+            },
+            "newObjectVars": {
+              "1": [
+                "items"
+              ]
+            },
+            "sizeFilters": []
+          },
+          []
+        ]
+      }
+    ]
+  }
+}

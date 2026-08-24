@@ -1,0 +1,51 @@
+{
+  "description": "Integer object-attribute filter: orders with `count` in [2,7]. o2 (1) and o5 (0) fail.",
+  "expected": [
+    {
+      "reasons": {
+        "ConstraintNotSatisfied(0)": 2
+      },
+      "situations": 5,
+      "violated": 2
+    }
+  ],
+  "ocel": "edge-cases.json",
+  "tree": {
+    "edgeNames": [],
+    "nodes": [
+      {
+        "Box": [
+          {
+            "constraints": [
+              {
+                "filter": {
+                  "at_time": {
+                    "type": "Sometime"
+                  },
+                  "attribute_name": "count",
+                  "object": 0,
+                  "type": "ObjectAttributeValueFilter",
+                  "value_filter": {
+                    "max": 7,
+                    "min": 2,
+                    "type": "Integer"
+                  }
+                },
+                "type": "Filter"
+              }
+            ],
+            "filters": [],
+            "newEventVars": {},
+            "newObjectVars": {
+              "0": [
+                "order"
+              ]
+            },
+            "sizeFilters": []
+          },
+          []
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,117 @@
+{
+  "description": "BindingSetEqual over a pay child and a ship child sharing one event variable. Equal only where both are empty (o2, o4, o5).",
+  "expected": [
+    {
+      "reasons": {
+        "ConstraintNotSatisfied(0)": 2
+      },
+      "situations": 5,
+      "violated": 2
+    },
+    {
+      "situations": 3,
+      "violated": 0
+    },
+    {
+      "situations": 1,
+      "violated": 0
+    }
+  ],
+  "ocel": "edge-cases.json",
+  "tree": {
+    "edgeNames": [
+      [
+        [
+          0,
+          1
+        ],
+        "A"
+      ],
+      [
+        [
+          0,
+          2
+        ],
+        "B"
+      ]
+    ],
+    "nodes": [
+      {
+        "Box": [
+          {
+            "constraints": [
+              {
+                "filter": {
+                  "child_names": [
+                    "A",
+                    "B"
+                  ],
+                  "type": "BindingSetEqual"
+                },
+                "type": "SizeFilter"
+              }
+            ],
+            "filters": [],
+            "newEventVars": {},
+            "newObjectVars": {
+              "0": [
+                "order"
+              ]
+            },
+            "sizeFilters": []
+          },
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      {
+        "Box": [
+          {
+            "constraints": [],
+            "filters": [
+              {
+                "event": 1,
+                "object": 0,
+                "qualifier": null,
+                "type": "O2E"
+              }
+            ],
+            "newEventVars": {
+              "1": [
+                "pay"
+              ]
+            },
+            "newObjectVars": {},
+            "sizeFilters": []
+          },
+          []
+        ]
+      },
+      {
+        "Box": [
+          {
+            "constraints": [],
+            "filters": [
+              {
+                "event": 1,
+                "object": 0,
+                "qualifier": null,
+                "type": "O2E"
+              }
+            ],
+            "newEventVars": {
+              "1": [
+                "ship"
+              ]
+            },
+            "newObjectVars": {},
+            "sizeFilters": []
+          },
+          []
+        ]
+      }
+    ]
+  }
+}

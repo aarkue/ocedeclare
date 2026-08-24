@@ -1,0 +1,78 @@
+{
+  "description": "Orders with between one and three distinct items, via NumChildsProj projecting the child's object variable.",
+  "expected": [
+    {
+      "situations": 1008,
+      "violated": 0
+    },
+    {
+      "situations": 2346,
+      "violated": 0
+    }
+  ],
+  "ocel": "order-management.xml.gz",
+  "tree": {
+    "edgeNames": [
+      [
+        [
+          0,
+          1
+        ],
+        "A"
+      ]
+    ],
+    "nodes": [
+      {
+        "Box": [
+          {
+            "constraints": [],
+            "filters": [],
+            "newEventVars": {},
+            "newObjectVars": {
+              "0": [
+                "orders"
+              ]
+            },
+            "sizeFilters": [
+              {
+                "child_name": "A",
+                "max": 3,
+                "min": 1,
+                "type": "NumChildsProj",
+                "var_name": {
+                  "Object": 1
+                }
+              }
+            ]
+          },
+          [
+            1
+          ]
+        ]
+      },
+      {
+        "Box": [
+          {
+            "constraints": [],
+            "filters": [
+              {
+                "object": 0,
+                "other_object": 1,
+                "qualifier": null,
+                "type": "O2O"
+              }
+            ],
+            "newEventVars": {},
+            "newObjectVars": {
+              "1": [
+                "items"
+              ]
+            },
+            "sizeFilters": []
+          },
+          []
+        ]
+      }
+    ]
+  }
+}

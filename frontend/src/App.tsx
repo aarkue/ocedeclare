@@ -315,8 +315,8 @@ function InnerApp({ children }: { children?: React.ReactNode }) {
 										<h3 className="text-xl font-bold">Extract from Tables</h3>
 									</div>
 									<p className="text-sm text-muted-foreground">
-										Source an Object-Centric Event Log from CSV, XLSX, or Parquet files, or a connected database (PostgreSQL,
-										SQLite, DuckDB).
+										Source an Object-Centric Event Log from CSV, XLSX, or Parquet files, or a
+										connected database (PostgreSQL, SQLite, DuckDB).
 									</p>
 								</Link>
 							</div>

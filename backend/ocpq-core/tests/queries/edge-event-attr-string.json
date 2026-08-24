@@ -1,0 +1,49 @@
+{
+  "description": "String event-attribute filter: every `place` must come through the web channel. e4 is phone.",
+  "expected": [
+    {
+      "reasons": {
+        "ConstraintNotSatisfied(0)": 1
+      },
+      "situations": 4,
+      "violated": 1
+    }
+  ],
+  "ocel": "edge-cases.json",
+  "tree": {
+    "edgeNames": [],
+    "nodes": [
+      {
+        "Box": [
+          {
+            "constraints": [
+              {
+                "filter": {
+                  "attribute_name": "channel",
+                  "event": 0,
+                  "type": "EventAttributeValueFilter",
+                  "value_filter": {
+                    "is_in": [
+                      "web"
+                    ],
+                    "type": "String"
+                  }
+                },
+                "type": "Filter"
+              }
+            ],
+            "filters": [],
+            "newEventVars": {
+              "0": [
+                "place"
+              ]
+            },
+            "newObjectVars": {},
+            "sizeFilters": []
+          },
+          []
+        ]
+      }
+    ]
+  }
+}

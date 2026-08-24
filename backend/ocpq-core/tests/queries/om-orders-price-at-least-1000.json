@@ -1,0 +1,45 @@
+{
+  "description": "Orders whose price ever reaches 1000, as a box filter instead of a constraint. Mirrors the query the e2e suite builds by hand in the visual editor, so both pin the same number.",
+  "expected": [
+    {
+      "situations": 1462,
+      "violated": 0
+    }
+  ],
+  "ocel": "order-management.xml.gz",
+  "tree": {
+    "edgeNames": [],
+    "nodes": [
+      {
+        "Box": [
+          {
+            "constraints": [],
+            "filters": [
+              {
+                "at_time": {
+                  "type": "Sometime"
+                },
+                "attribute_name": "price",
+                "object": 0,
+                "type": "ObjectAttributeValueFilter",
+                "value_filter": {
+                  "max": null,
+                  "min": 1000.0,
+                  "type": "Float"
+                }
+              }
+            ],
+            "newEventVars": {},
+            "newObjectVars": {
+              "0": [
+                "orders"
+              ]
+            },
+            "sizeFilters": []
+          },
+          []
+        ]
+      }
+    ]
+  }
+}

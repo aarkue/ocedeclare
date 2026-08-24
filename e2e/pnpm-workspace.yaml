@@ -1,0 +1,10 @@
+# Self-contained, like `tauri/`: the root workspace lists only `frontend`, and this project's deps
+# (webdriverio and the Tauri service) have nothing to share with the app.
+# tsx loads the TS config and specs through esbuild, whose install script picks the platform binary.
+allowBuilds:
+  esbuild: true
+
+minimumReleaseAge: 1440
+minimumReleaseAgeExclude:
+  # Published 2026-08-03, newer than the release-age floor.
+  - '@wdio/tauri-service'

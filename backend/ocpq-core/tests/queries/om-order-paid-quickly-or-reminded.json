@@ -1,0 +1,208 @@
+{
+  "description": "Every order is either paid within ~10.7 days of confirmation, or received a payment reminder. Covers an OR whose branches are themselves two levels deep.",
+  "expected": [
+    {
+      "reasons": {
+        "ConstraintNotSatisfied(0)": 286
+      },
+      "situations": 2000,
+      "violated": 286
+    },
+    {
+      "reasons": {
+        "ConstraintNotSatisfied(0)": 729
+      },
+      "situations": 2000,
+      "violated": 729
+    },
+    {
+      "situations": 1271,
+      "violated": 0
+    },
+    {
+      "reasons": {
+        "ConstraintNotSatisfied(0)": 1557
+      },
+      "situations": 2000,
+      "violated": 1557
+    },
+    {
+      "situations": 566,
+      "violated": 0
+    }
+  ],
+  "ocel": "order-management.xml.gz",
+  "tree": {
+    "edgeNames": [
+      [
+        [
+          0,
+          1
+        ],
+        "A"
+      ],
+      [
+        [
+          1,
+          2
+        ],
+        "X"
+      ],
+      [
+        [
+          3,
+          4
+        ],
+        "Y"
+      ],
+      [
+        [
+          0,
+          3
+        ],
+        "B"
+      ]
+    ],
+    "nodes": [
+      {
+        "Box": [
+          {
+            "constraints": [
+              {
+                "child_names": [
+                  "A",
+                  "B"
+                ],
+                "type": "OR"
+              }
+            ],
+            "filters": [],
+            "newEventVars": {},
+            "newObjectVars": {
+              "0": [
+                "orders"
+              ]
+            },
+            "sizeFilters": []
+          },
+          [
+            1,
+            3
+          ]
+        ]
+      },
+      {
+        "Box": [
+          {
+            "constraints": [
+              {
+                "filter": {
+                  "child_name": "X",
+                  "max": null,
+                  "min": 1,
+                  "type": "NumChilds"
+                },
+                "type": "SizeFilter"
+              }
+            ],
+            "filters": [
+              {
+                "event": 2,
+                "object": 0,
+                "qualifier": null,
+                "type": "O2E"
+              }
+            ],
+            "newEventVars": {
+              "2": [
+                "confirm order"
+              ]
+            },
+            "newObjectVars": {},
+            "sizeFilters": []
+          },
+          [
+            2
+          ]
+        ]
+      },
+      {
+        "Box": [
+          {
+            "constraints": [],
+            "filters": [
+              {
+                "event": 3,
+                "object": 0,
+                "qualifier": null,
+                "type": "O2E"
+              },
+              {
+                "from_event": 2,
+                "max_seconds": 927754.3665091232,
+                "min_seconds": 0.0,
+                "to_event": 3,
+                "type": "TimeBetweenEvents"
+              }
+            ],
+            "newEventVars": {
+              "3": [
+                "pay order"
+              ]
+            },
+            "newObjectVars": {},
+            "sizeFilters": []
+          },
+          []
+        ]
+      },
+      {
+        "Box": [
+          {
+            "constraints": [
+              {
+                "filter": {
+                  "child_name": "Y",
+                  "max": null,
+                  "min": 1,
+                  "type": "NumChilds"
+                },
+                "type": "SizeFilter"
+              }
+            ],
+            "filters": [],
+            "newEventVars": {},
+            "newObjectVars": {},
+            "sizeFilters": []
+          },
+          [
+            4
+          ]
+        ]
+      },
+      {
+        "Box": [
+          {
+            "constraints": [],
+            "filters": [
+              {
+                "event": 1,
+                "object": 0,
+                "qualifier": null,
+                "type": "O2E"
+              }
+            ],
+            "newEventVars": {
+              "1": [
+                "payment reminder"
+              ]
+            },
+            "newObjectVars": {},
+            "sizeFilters": []
+          },
+          []
+        ]
+      }
+    ]
+  }
+}

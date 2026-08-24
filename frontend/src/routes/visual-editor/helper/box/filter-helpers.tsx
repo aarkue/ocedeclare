@@ -1,5 +1,5 @@
-import { Cross2Icon } from "@radix-ui/react-icons";
 import { AttributeValueStats } from "@r4pm/components";
+import { Cross2Icon } from "@radix-ui/react-icons";
 import clsx from "clsx";
 import { type ReactNode, useState } from "react";
 import { R4pmIsland } from "@/components/r4pm/R4pmIsland";

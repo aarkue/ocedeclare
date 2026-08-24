@@ -9,9 +9,13 @@ use process_mining::core::event_data::object_centric::linked_ocel::{
 };
 
 use super::{
-    structs::{BindingBox, BindingStep, Filter, Qualifier, Variable},
+    structs::{BindingBox, BindingStep, EventVariable, Filter, Qualifier, Variable},
     Binding,
 };
+
+/// Per event variable, the other event variables it is time-constrained against, with the min and
+/// max seconds allowed between them.
+type TimeBetweenEventVars = HashMap<EventVariable, Vec<(EventVariable, Option<f64>, Option<f64>)>>;
 
 impl BindingStep {
     /// Orders variable bindings so every variable is bound before a filter needs it, preferring the order that creates the fewest intermediate bindings.
@@ -87,10 +91,7 @@ impl BindingStep {
             var_can_bind.insert(Variable::Object(*ob_var), BTreeSet::new());
             var_can_bind_with_qualifier.insert(Variable::Object(*ob_var), BTreeSet::new());
         }
-        let mut time_between_evs: HashMap<
-            super::structs::EventVariable,
-            Vec<(super::structs::EventVariable, Option<f64>, Option<f64>)>,
-        > = HashMap::new();
+        let mut time_between_evs: TimeBetweenEventVars = HashMap::new();
         for f in &bbox.filters {
             if let Filter::TimeBetweenEvents {
                 from_event,

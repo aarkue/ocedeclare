@@ -1,0 +1,192 @@
+{
+  "description": "Mid-priced orders paid within 28 days of confirmation, with the order's items required to match the confirming event's items. Covers O2E, O2O, TimeBetweenEvents, ObjectAttributeValueFilter, NumChilds, NumChildsProj and BindingSetProjectionEqual in one tree.",
+  "expected": [
+    {
+      "situations": 468,
+      "violated": 0
+    },
+    {
+      "situations": 1150,
+      "violated": 0
+    },
+    {
+      "situations": 1150,
+      "violated": 0
+    }
+  ],
+  "ocel": "order-management.xml.gz",
+  "tree": {
+    "edgeNames": [
+      [
+        [
+          0,
+          2
+        ],
+        "B"
+      ],
+      [
+        [
+          0,
+          1
+        ],
+        "A"
+      ]
+    ],
+    "nodes": [
+      {
+        "Box": [
+          {
+            "constraints": [
+              {
+                "filter": {
+                  "child_name": "A",
+                  "max": 10,
+                  "min": 1,
+                  "type": "NumChilds"
+                },
+                "type": "SizeFilter"
+              },
+              {
+                "filter": {
+                  "child_name_with_var_name": [
+                    [
+                      "A",
+                      {
+                        "Object": 2
+                      }
+                    ],
+                    [
+                      "B",
+                      {
+                        "Object": 2
+                      }
+                    ]
+                  ],
+                  "type": "BindingSetProjectionEqual"
+                },
+                "type": "SizeFilter"
+              }
+            ],
+            "filters": [
+              {
+                "event": 0,
+                "object": 1,
+                "qualifier": null,
+                "type": "O2E"
+              },
+              {
+                "object": 0,
+                "other_object": 1,
+                "qualifier": null,
+                "type": "O2O"
+              },
+              {
+                "from_event": 0,
+                "max_seconds": 2419200.0,
+                "min_seconds": 0.0,
+                "to_event": 1,
+                "type": "TimeBetweenEvents"
+              },
+              {
+                "at_time": {
+                  "type": "Sometime"
+                },
+                "attribute_name": "price",
+                "object": 1,
+                "type": "ObjectAttributeValueFilter",
+                "value_filter": {
+                  "max": 1000.0,
+                  "min": 100.0,
+                  "type": "Float"
+                }
+              },
+              {
+                "event": 1,
+                "object": 1,
+                "qualifier": null,
+                "type": "O2E"
+              }
+            ],
+            "newEventVars": {
+              "0": [
+                "confirm order"
+              ],
+              "1": [
+                "pay order"
+              ]
+            },
+            "newObjectVars": {
+              "0": [
+                "customers"
+              ],
+              "1": [
+                "orders"
+              ]
+            },
+            "sizeFilters": [
+              {
+                "child_name": "A",
+                "max": 10,
+                "min": 1,
+                "type": "NumChildsProj",
+                "var_name": {
+                  "Object": 0
+                }
+              }
+            ]
+          },
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      {
+        "Box": [
+          {
+            "constraints": [],
+            "filters": [
+              {
+                "object": 1,
+                "other_object": 2,
+                "qualifier": null,
+                "type": "O2O"
+              }
+            ],
+            "newEventVars": {},
+            "newObjectVars": {
+              "2": [
+                "items"
+              ]
+            },
+            "sizeFilters": []
+          },
+          []
+        ]
+      },
+      {
+        "Box": [
+          {
+            "constraints": [],
+            "filters": [
+              {
+                "event": 0,
+                "object": 2,
+                "qualifier": null,
+                "type": "O2E"
+              }
+            ],
+            "newEventVars": {},
+            "newObjectVars": {
+              "2": [
+                "items"
+              ]
+            },
+            "sizeFilters": []
+          },
+          []
+        ]
+      }
+    ]
+  }
+}

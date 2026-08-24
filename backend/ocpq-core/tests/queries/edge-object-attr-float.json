@@ -1,0 +1,51 @@
+{
+  "description": "Float object-attribute filter with both bounds: `total` in [50, 250]. o4 (400) and o5 (10) fail.",
+  "expected": [
+    {
+      "reasons": {
+        "ConstraintNotSatisfied(0)": 2
+      },
+      "situations": 5,
+      "violated": 2
+    }
+  ],
+  "ocel": "edge-cases.json",
+  "tree": {
+    "edgeNames": [],
+    "nodes": [
+      {
+        "Box": [
+          {
+            "constraints": [
+              {
+                "filter": {
+                  "at_time": {
+                    "type": "Sometime"
+                  },
+                  "attribute_name": "total",
+                  "object": 0,
+                  "type": "ObjectAttributeValueFilter",
+                  "value_filter": {
+                    "max": 250.0,
+                    "min": 50.0,
+                    "type": "Float"
+                  }
+                },
+                "type": "Filter"
+              }
+            ],
+            "filters": [],
+            "newEventVars": {},
+            "newObjectVars": {
+              "0": [
+                "order"
+              ]
+            },
+            "sizeFilters": []
+          },
+          []
+        ]
+      }
+    ]
+  }
+}

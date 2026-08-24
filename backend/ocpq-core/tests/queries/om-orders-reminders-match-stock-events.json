@@ -1,0 +1,117 @@
+{
+  "description": "Every order's payment-reminder bindings must equal its out-of-stock bindings. Out-of-stock events never attach to an order, so that child is always empty and the two sets agree exactly for the orders with no reminder either; the 443 orders that were reminded are the violations. Each child scopes its own event variable; empty sets compare equal regardless.",
+  "expected": [
+    {
+      "reasons": {
+        "ConstraintNotSatisfied(0)": 443
+      },
+      "situations": 2000,
+      "violated": 443
+    },
+    {
+      "situations": 566,
+      "violated": 0
+    },
+    {
+      "situations": 0,
+      "violated": 0
+    }
+  ],
+  "ocel": "order-management.xml.gz",
+  "tree": {
+    "edgeNames": [
+      [
+        [
+          0,
+          1
+        ],
+        "A"
+      ],
+      [
+        [
+          0,
+          2
+        ],
+        "B"
+      ]
+    ],
+    "nodes": [
+      {
+        "Box": [
+          {
+            "constraints": [
+              {
+                "filter": {
+                  "child_names": [
+                    "A",
+                    "B"
+                  ],
+                  "type": "BindingSetEqual"
+                },
+                "type": "SizeFilter"
+              }
+            ],
+            "filters": [],
+            "newEventVars": {},
+            "newObjectVars": {
+              "0": [
+                "orders"
+              ]
+            },
+            "sizeFilters": []
+          },
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      {
+        "Box": [
+          {
+            "constraints": [],
+            "filters": [
+              {
+                "event": 0,
+                "object": 0,
+                "qualifier": null,
+                "type": "O2E"
+              }
+            ],
+            "newEventVars": {
+              "0": [
+                "payment reminder"
+              ]
+            },
+            "newObjectVars": {},
+            "sizeFilters": []
+          },
+          []
+        ]
+      },
+      {
+        "Box": [
+          {
+            "constraints": [],
+            "filters": [
+              {
+                "event": 0,
+                "object": 0,
+                "qualifier": null,
+                "type": "O2E"
+              }
+            ],
+            "newEventVars": {
+              "0": [
+                "item out of stock"
+              ]
+            },
+            "newObjectVars": {},
+            "sizeFilters": []
+          },
+          []
+        ]
+      }
+    ]
+  }
+}

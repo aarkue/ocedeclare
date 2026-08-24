@@ -1,0 +1,110 @@
+{
+  "description": "Accepted Applications whose Offers were sent, by either channel, within a window of the acceptance.",
+  "expected": [
+    {
+      "reasons": {
+        "ConstraintNotSatisfied(0)": 1586
+      },
+      "situations": 31509,
+      "violated": 1586
+    },
+    {
+      "situations": 33754,
+      "violated": 0
+    }
+  ],
+  "ocel": "bpic2017.xml.gz",
+  "tree": {
+    "edgeNames": [
+      [
+        [
+          0,
+          1
+        ],
+        "A"
+      ]
+    ],
+    "nodes": [
+      {
+        "Box": [
+          {
+            "constraints": [
+              {
+                "filter": {
+                  "child_name": "A",
+                  "max": null,
+                  "min": 1,
+                  "type": "NumChilds"
+                },
+                "type": "SizeFilter"
+              }
+            ],
+            "filters": [
+              {
+                "event": 0,
+                "object": 0,
+                "qualifier": null,
+                "type": "O2E"
+              }
+            ],
+            "newEventVars": {
+              "0": [
+                "A_Accepted"
+              ]
+            },
+            "newObjectVars": {
+              "0": [
+                "Application"
+              ]
+            },
+            "sizeFilters": []
+          },
+          [
+            1
+          ]
+        ]
+      },
+      {
+        "Box": [
+          {
+            "constraints": [],
+            "filters": [
+              {
+                "object": 0,
+                "other_object": 1,
+                "qualifier": null,
+                "type": "O2O"
+              },
+              {
+                "event": 1,
+                "object": 1,
+                "qualifier": null,
+                "type": "O2E"
+              },
+              {
+                "from_event": 0,
+                "max_seconds": 7200.0,
+                "min_seconds": 0.0,
+                "to_event": 1,
+                "type": "TimeBetweenEvents"
+              }
+            ],
+            "newEventVars": {
+              "1": [
+                "O_Sent (mail and online)",
+                "O_Sent (online only)"
+              ]
+            },
+            "newObjectVars": {
+              "1": [
+                "Offer"
+              ]
+            },
+            "sizeFilters": []
+          },
+          []
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "description": "Time object-attribute filter: `due` within 2024-04-01..2024-06-01. o1 is earlier, o5 later.",
+  "expected": [
+    {
+      "reasons": {
+        "ConstraintNotSatisfied(0)": 2
+      },
+      "situations": 5,
+      "violated": 2
+    }
+  ],
+  "ocel": "edge-cases.json",
+  "tree": {
+    "edgeNames": [],
+    "nodes": [
+      {
+        "Box": [
+          {
+            "constraints": [
+              {
+                "filter": {
+                  "at_time": {
+                    "type": "Sometime"
+                  },
+                  "attribute_name": "due",
+                  "object": 0,
+                  "type": "ObjectAttributeValueFilter",
+                  "value_filter": {
+                    "from": "2024-04-01T00:00:00Z",
+                    "to": "2024-06-01T00:00:00Z",
+                    "type": "Time"
+                  }
+                },
+                "type": "Filter"
+              }
+            ],
+            "filters": [],
+            "newEventVars": {},
+            "newObjectVars": {
+              "0": [
+                "order"
+              ]
+            },
+            "sizeFilters": []
+          },
+          []
+        ]
+      }
+    ]
+  }
+}

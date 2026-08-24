@@ -1,5 +1,5 @@
 import { ActivityChooser, ObjectTypeChooser } from "@r4pm/components";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { LuAsterisk, LuPlus } from "react-icons/lu";
 import FilterLabelIcon from "@/components/FilterLabelIcon";
 import { R4pmIsland } from "@/components/r4pm/R4pmIsland";
@@ -61,6 +61,31 @@ export default function NewVariableChooser({
 			.filter((_i, index) => index < 10);
 	}
 
+	// `getAvailableVars` reads the parent chain out of the flow instance, so this box recomputes what
+	// is in scope only when it re-renders. A parent gaining a variable does not re-render its
+	// children, which leaves the click handler below picking from a stale free list: a child created
+	// before its parent had any variables offers o1, which the parent now owns. Opening the dialog
+	// does re-render, the option list drops that key, and the combobox matches nothing. Snap back to
+	// a variable that is genuinely free.
+	const takenObjectVars = availableObjectVars.join(",");
+	const takenEventVars = availableEventVars.join(",");
+	useEffect(() => {
+		if (alertState === undefined || alertState.mode !== "add") {
+			return;
+		}
+		const taken = (alertState.variant === "object" ? takenObjectVars : takenEventVars)
+			.split(",")
+			.filter((s) => s !== "")
+			.map((s) => Number.parseInt(s, 10));
+		if (!taken.includes(alertState.key)) {
+			return;
+		}
+		const firstFree = Array.from({ length: 100 }, (_, i) => i).find((i) => !taken.includes(i));
+		if (firstFree !== undefined) {
+			setAlertState({ ...alertState, key: firstFree });
+		}
+	}, [alertState, takenObjectVars, takenEventVars]);
+
 	if (ocelInfo === undefined) {
 		return <div>No OCEL Info available. Check backend and reload.</div>;
 	}
@@ -77,7 +102,7 @@ export default function NewVariableChooser({
 							mode: "add",
 							variant: "object",
 							key: getAvailableObjVars()[0],
-							value: ocelInfo.object_types.length > 0 ? [ocelInfo.object_types[0].name] : [],
+							value: [],
 						})
 					}
 				>
@@ -142,7 +167,7 @@ export default function NewVariableChooser({
 							mode: "add",
 							variant: "event",
 							key: getAvailableEvVars()[0],
-							value: ocelInfo.event_types.length >= 1 ? [ocelInfo.event_types[0].name] : [],
+							value: [],
 						})
 					}
 				>
@@ -319,6 +344,7 @@ export default function NewVariableChooser({
 							)}
 							<AlertDialogCancel>Cancel</AlertDialogCancel>
 							<AlertDialogAction
+								disabled={alertState.value.length === 0}
 								onClick={() => {
 									const newBox = { ...box };
 									if (alertState.mode === "edit") {

@@ -1,0 +1,41 @@
+{
+  "description": "Order/item pairs linked by an object-to-object relation. Mirrors the two-variable query the e2e suite builds, so both pin the same number.",
+  "expected": [
+    {
+      "situations": 7659,
+      "violated": 0
+    }
+  ],
+  "ocel": "order-management.xml.gz",
+  "tree": {
+    "edgeNames": [],
+    "nodes": [
+      {
+        "Box": [
+          {
+            "constraints": [],
+            "filters": [
+              {
+                "object": 0,
+                "other_object": 1,
+                "qualifier": null,
+                "type": "O2O"
+              }
+            ],
+            "newEventVars": {},
+            "newObjectVars": {
+              "0": [
+                "orders"
+              ],
+              "1": [
+                "items"
+              ]
+            },
+            "sizeFilters": []
+          },
+          []
+        ]
+      }
+    ]
+  }
+}

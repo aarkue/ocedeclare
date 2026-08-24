@@ -1,0 +1,85 @@
+{
+  "description": "Every O_Returned event touches exactly one Offer. The object variable is introduced in the child, so the child owns the object table. (eval-repo Q3)",
+  "expected": [
+    {
+      "situations": 23305,
+      "violated": 0
+    },
+    {
+      "situations": 23305,
+      "violated": 0
+    }
+  ],
+  "ocel": "bpic2017.xml.gz",
+  "tree": {
+    "edgeNames": [
+      [
+        [
+          0,
+          1
+        ],
+        "A"
+      ]
+    ],
+    "nodes": [
+      {
+        "Box": [
+          {
+            "constraints": [
+              {
+                "filter": {
+                  "child_name": "A",
+                  "max": 1,
+                  "min": 1,
+                  "type": "NumChilds"
+                },
+                "type": "SizeFilter"
+              }
+            ],
+            "evVarLabels": {},
+            "filters": [],
+            "labels": [],
+            "newEventVars": {
+              "0": [
+                "O_Returned"
+              ]
+            },
+            "newObjectVars": {},
+            "obVarLabels": {},
+            "sizeFilters": []
+          },
+          [
+            1
+          ]
+        ]
+      },
+      {
+        "Box": [
+          {
+            "constraints": [],
+            "evVarLabels": {},
+            "filters": [
+              {
+                "event": 0,
+                "filterLabel": null,
+                "object": 1,
+                "qualifier": null,
+                "type": "O2E"
+              }
+            ],
+            "labels": [],
+            "newEventVars": {},
+            "newObjectVars": {
+              "1": [
+                "Offer"
+              ]
+            },
+            "obVarLabels": {},
+            "sizeFilters": []
+          },
+          []
+        ]
+      }
+    ]
+  }
+}

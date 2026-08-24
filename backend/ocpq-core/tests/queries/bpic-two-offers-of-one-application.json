@@ -1,0 +1,76 @@
+{
+  "description": "Two Offers of one Application, each with its own O_Created. The corpus's only child-free tree. (eval-repo Q7)",
+  "expected": [
+    {
+      "situations": 74771,
+      "violated": 0
+    }
+  ],
+  "ocel": "bpic2017.xml.gz",
+  "tree": {
+    "edgeNames": [],
+    "nodes": [
+      {
+        "Box": [
+          {
+            "constraints": [],
+            "evVarLabels": {},
+            "filters": [
+              {
+                "filterLabel": null,
+                "object": 0,
+                "other_object": 1,
+                "qualifier": null,
+                "type": "O2O"
+              },
+              {
+                "filterLabel": null,
+                "object": 0,
+                "other_object": 2,
+                "qualifier": null,
+                "type": "O2O"
+              },
+              {
+                "event": 1,
+                "filterLabel": null,
+                "object": 1,
+                "qualifier": null,
+                "type": "O2E"
+              },
+              {
+                "event": 2,
+                "filterLabel": null,
+                "object": 2,
+                "qualifier": null,
+                "type": "O2E"
+              }
+            ],
+            "labels": [],
+            "newEventVars": {
+              "1": [
+                "O_Created"
+              ],
+              "2": [
+                "O_Created"
+              ]
+            },
+            "newObjectVars": {
+              "0": [
+                "Application"
+              ],
+              "1": [
+                "Offer"
+              ],
+              "2": [
+                "Offer"
+              ]
+            },
+            "obVarLabels": {},
+            "sizeFilters": []
+          },
+          []
+        ]
+      }
+    ]
+  }
+}

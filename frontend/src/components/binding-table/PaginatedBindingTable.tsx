@@ -130,11 +130,7 @@ export function DataTablePagination({
 													}
 													newState={(newChecked) => {
 														const next =
-															newChecked === "indeterminate"
-																? null
-																: newChecked === "unchecked"
-																	? false
-																	: true;
+															newChecked === "indeterminate" ? null : newChecked !== "unchecked";
 														setPage({ pageIndex: 0, violated: next });
 													}}
 												/>

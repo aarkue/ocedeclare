@@ -1,0 +1,184 @@
+{
+  "description": "Every purchase order is either two-way matched or paid. OR over two branches that each gate on a grandchild's binding count, so an order with neither is the violation.",
+  "expected": [
+    {
+      "situations": 1598,
+      "violated": 0
+    },
+    {
+      "reasons": {
+        "ConstraintNotSatisfied(0)": 1598
+      },
+      "situations": 1598,
+      "violated": 1598
+    },
+    {
+      "situations": 0,
+      "violated": 0
+    },
+    {
+      "situations": 1598,
+      "violated": 0
+    },
+    {
+      "situations": 1992,
+      "violated": 0
+    }
+  ],
+  "ocel": "p2p.xml.gz",
+  "tree": {
+    "edgeNames": [
+      [
+        [
+          0,
+          1
+        ],
+        "A"
+      ],
+      [
+        [
+          1,
+          2
+        ],
+        "MATCH"
+      ],
+      [
+        [
+          0,
+          3
+        ],
+        "B"
+      ],
+      [
+        [
+          3,
+          4
+        ],
+        "PAY"
+      ]
+    ],
+    "nodes": [
+      {
+        "Box": [
+          {
+            "constraints": [
+              {
+                "child_names": [
+                  "A",
+                  "B"
+                ],
+                "type": "OR"
+              }
+            ],
+            "filters": [],
+            "newEventVars": {},
+            "newObjectVars": {
+              "0": [
+                "purchase_order"
+              ]
+            },
+            "sizeFilters": []
+          },
+          [
+            1,
+            3
+          ]
+        ]
+      },
+      {
+        "Box": [
+          {
+            "constraints": [
+              {
+                "filter": {
+                  "child_name": "MATCH",
+                  "max": null,
+                  "min": 1,
+                  "type": "NumChilds"
+                },
+                "type": "SizeFilter"
+              }
+            ],
+            "filters": [],
+            "newEventVars": {},
+            "newObjectVars": {},
+            "sizeFilters": []
+          },
+          [
+            2
+          ]
+        ]
+      },
+      {
+        "Box": [
+          {
+            "constraints": [],
+            "filters": [
+              {
+                "event": 0,
+                "object": 0,
+                "qualifier": null,
+                "type": "O2E"
+              }
+            ],
+            "newEventVars": {
+              "0": [
+                "Perform Two-Way Match"
+              ]
+            },
+            "newObjectVars": {},
+            "sizeFilters": []
+          },
+          []
+        ]
+      },
+      {
+        "Box": [
+          {
+            "constraints": [
+              {
+                "filter": {
+                  "child_name": "PAY",
+                  "max": null,
+                  "min": 1,
+                  "type": "NumChilds"
+                },
+                "type": "SizeFilter"
+              }
+            ],
+            "filters": [],
+            "newEventVars": {},
+            "newObjectVars": {},
+            "sizeFilters": []
+          },
+          [
+            4
+          ]
+        ]
+      },
+      {
+        "Box": [
+          {
+            "constraints": [],
+            "filters": [
+              {
+                "event": 1,
+                "object": 0,
+                "qualifier": null,
+                "type": "O2E"
+              }
+            ],
+            "newEventVars": {
+              "1": [
+                "Execute Payment"
+              ]
+            },
+            "newObjectVars": {},
+            "sizeFilters": []
+          },
+          []
+        ]
+      }
+    ]
+  }
+}

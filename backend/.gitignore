@@ -1,3 +1,6 @@
 /target
 /data
 *.json
+
+# The blanket `*.json` above is why fixtures used to be inlined as string literals in tests.
+!ocpq-core/tests/**/*.json

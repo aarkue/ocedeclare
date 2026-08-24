@@ -7,7 +7,7 @@ license = ""
 repository = ""
 default-run = "ocpq-tauri"
 edition = "2021"
-rust-version = "1.60"
+rust-version = "1.77.2"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -38,11 +38,23 @@ tauri-plugin-process = "2"
 tauri-plugin-log = "2"
 log = "0.4.27"
 
+[dependencies.tauri-plugin-wdio]
+version = "1"
+optional = true
+
+[dependencies.tauri-plugin-wdio-webdriver]
+version = "1"
+optional = true
+
 [features]
 # this feature is used for production builds or when `devPath` points to the filesystem and the built-in dev server is disabled.
 # If you use cargo directly instead of tauri's cli you can use this feature flag to switch between tauri's `dev` and `build` modes.
 # DO NOT REMOVE!!
 custom-protocol = ["tauri/custom-protocol"]
+# Embeds a WebDriver server so the e2e suite can drive the real app. Opt-in and never enabled for a
+# release build: it exposes an HTTP automation endpoint and needs `withGlobalTauri`. Build the test
+# binary with `--features wdio --config src-tauri/tauri.conf.test.json`.
+wdio = ["dep:tauri-plugin-wdio", "dep:tauri-plugin-wdio-webdriver"]
 
 [target.'cfg(not(any(target_os = "android", target_os = "ios")))'.dependencies]
 tauri-plugin-updater = "2"

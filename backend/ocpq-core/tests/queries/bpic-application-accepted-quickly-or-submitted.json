@@ -1,0 +1,208 @@
+{
+  "description": "Every Application is either accepted soon after creation, or at least submitted. OR over two branches that are themselves two levels deep.",
+  "expected": [
+    {
+      "reasons": {
+        "ConstraintNotSatisfied(0)": 758
+      },
+      "situations": 31509,
+      "violated": 758
+    },
+    {
+      "reasons": {
+        "ConstraintNotSatisfied(0)": 10598
+      },
+      "situations": 31509,
+      "violated": 10598
+    },
+    {
+      "situations": 20911,
+      "violated": 0
+    },
+    {
+      "reasons": {
+        "ConstraintNotSatisfied(0)": 11086
+      },
+      "situations": 31509,
+      "violated": 11086
+    },
+    {
+      "situations": 20423,
+      "violated": 0
+    }
+  ],
+  "ocel": "bpic2017.xml.gz",
+  "tree": {
+    "edgeNames": [
+      [
+        [
+          0,
+          1
+        ],
+        "A"
+      ],
+      [
+        [
+          0,
+          3
+        ],
+        "B"
+      ],
+      [
+        [
+          3,
+          4
+        ],
+        "Y"
+      ],
+      [
+        [
+          1,
+          2
+        ],
+        "X"
+      ]
+    ],
+    "nodes": [
+      {
+        "Box": [
+          {
+            "constraints": [
+              {
+                "child_names": [
+                  "A",
+                  "B"
+                ],
+                "type": "OR"
+              }
+            ],
+            "filters": [],
+            "newEventVars": {},
+            "newObjectVars": {
+              "0": [
+                "Application"
+              ]
+            },
+            "sizeFilters": []
+          },
+          [
+            1,
+            3
+          ]
+        ]
+      },
+      {
+        "Box": [
+          {
+            "constraints": [
+              {
+                "filter": {
+                  "child_name": "X",
+                  "max": null,
+                  "min": 1,
+                  "type": "NumChilds"
+                },
+                "type": "SizeFilter"
+              }
+            ],
+            "filters": [
+              {
+                "event": 2,
+                "object": 0,
+                "qualifier": null,
+                "type": "O2E"
+              }
+            ],
+            "newEventVars": {
+              "2": [
+                "A_Create Application"
+              ]
+            },
+            "newObjectVars": {},
+            "sizeFilters": []
+          },
+          [
+            2
+          ]
+        ]
+      },
+      {
+        "Box": [
+          {
+            "constraints": [],
+            "filters": [
+              {
+                "event": 3,
+                "object": 0,
+                "qualifier": null,
+                "type": "O2E"
+              },
+              {
+                "from_event": 2,
+                "max_seconds": 122275.21533424068,
+                "min_seconds": 0.0,
+                "to_event": 3,
+                "type": "TimeBetweenEvents"
+              }
+            ],
+            "newEventVars": {
+              "3": [
+                "A_Accepted"
+              ]
+            },
+            "newObjectVars": {},
+            "sizeFilters": []
+          },
+          []
+        ]
+      },
+      {
+        "Box": [
+          {
+            "constraints": [
+              {
+                "filter": {
+                  "child_name": "Y",
+                  "max": 1,
+                  "min": 1,
+                  "type": "NumChilds"
+                },
+                "type": "SizeFilter"
+              }
+            ],
+            "filters": [],
+            "newEventVars": {},
+            "newObjectVars": {},
+            "sizeFilters": []
+          },
+          [
+            4
+          ]
+        ]
+      },
+      {
+        "Box": [
+          {
+            "constraints": [],
+            "filters": [
+              {
+                "event": 1,
+                "object": 0,
+                "qualifier": null,
+                "type": "O2E"
+              }
+            ],
+            "newEventVars": {
+              "1": [
+                "A_Submitted"
+              ]
+            },
+            "newObjectVars": {},
+            "sizeFilters": []
+          },
+          []
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "description": "A box filter no object satisfies, so the root binds nothing and the tree yields zero situations.",
+  "expected": [
+    {
+      "situations": 0,
+      "violated": 0
+    }
+  ],
+  "ocel": "edge-cases.json",
+  "tree": {
+    "edgeNames": [],
+    "nodes": [
+      {
+        "Box": [
+          {
+            "constraints": [],
+            "filters": [
+              {
+                "at_time": {
+                  "type": "Sometime"
+                },
+                "attribute_name": "region",
+                "object": 0,
+                "type": "ObjectAttributeValueFilter",
+                "value_filter": {
+                  "is_in": [
+                    "nowhere"
+                  ],
+                  "type": "String"
+                }
+              }
+            ],
+            "newEventVars": {},
+            "newObjectVars": {
+              "0": [
+                "order"
+              ]
+            },
+            "sizeFilters": []
+          },
+          []
+        ]
+      }
+    ]
+  }
+}

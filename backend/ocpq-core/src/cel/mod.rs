@@ -2,7 +2,6 @@ use std::{
     cell::RefCell,
     collections::{HashMap, HashSet},
     sync::{Arc, RwLock},
-    usize,
 };
 
 use cel_interpreter::{
@@ -22,8 +21,10 @@ use process_mining::core::event_data::object_centric::{
 
 use crate::{
     binding_box::{
-        structs::{EventVariable, LabelFunction, LabelValue, ObjectVariable, Variable},
-        Binding, ViolationReason,
+        structs::{
+            ChildResults, EventVariable, LabelFunction, LabelValue, ObjectVariable, Variable,
+        },
+        Binding,
     },
     preprocessing::linked_ocel::{event_or_object_from_index, OCELNode},
 };
@@ -419,7 +420,7 @@ fn build_base_cel_context(ocel: &SlimLinkedOCEL) -> Context<'static> {
 pub fn evaluate_cel<'a>(
     cel: &str,
     binding: &'a Binding,
-    child_res: Option<&HashMap<String, Vec<(Arc<Binding>, Option<ViolationReason>)>>>,
+    child_res: Option<&ChildResults>,
     ocel: &'a SlimLinkedOCEL,
 ) -> Result<Value, CELEvalError> {
     lazy_compile_and_insert_into_cache(cel).map_err(CELEvalError::ParseError)?;
@@ -521,7 +522,7 @@ impl From<ExecutionError> for CELEvalError {
 pub fn check_cel_predicate<'a>(
     cel: &str,
     binding: &'a Binding,
-    child_res: Option<&HashMap<String, Vec<(Arc<Binding>, Option<ViolationReason>)>>>,
+    child_res: Option<&ChildResults>,
     ocel: &'a SlimLinkedOCEL,
 ) -> Result<bool, String> {
     match evaluate_cel(cel, binding, child_res, ocel) {
@@ -534,7 +535,7 @@ pub fn check_cel_predicate<'a>(
 
 pub fn add_cel_label<'a>(
     binding: &'a mut Binding,
-    child_res: Option<&HashMap<String, Vec<(Arc<Binding>, Option<ViolationReason>)>>>,
+    child_res: Option<&ChildResults>,
     ocel: &'a SlimLinkedOCEL,
     label_fun: &'a LabelFunction,
 ) -> Result<(), String> {

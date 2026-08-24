@@ -227,10 +227,10 @@ pub fn discover_count_constraints_for_supporting_instances<
                                     EventOrObjectType::Event(ocel_type.clone())
                                 }
                             },
-                            ocel_relation_flipped: match &ref_type {
-                                RefType::ObjectReversed | RefType::EventReversed => true,
-                                _ => false,
-                            },
+                            ocel_relation_flipped: matches!(
+                                ref_type,
+                                RefType::ObjectReversed | RefType::EventReversed
+                            ),
                         });
                     }
                 }
@@ -514,11 +514,11 @@ pub struct EFConstraint {
 pub fn discover_ef_constraints(
     ocel: &SlimLinkedOCEL,
     coverage: f32,
-    object_type: &String,
+    object_type: &str,
 ) -> Vec<EFConstraint> {
     let _now = crate::timing::Timer::start();
     let mut ret = Vec::new();
-    let instances: Vec<_> = get_instances(ocel, &EventOrObjectType::Object(object_type.clone()));
+    let instances: Vec<_> = get_instances(ocel, &EventOrObjectType::Object(object_type.to_owned()));
     ret.extend(discover_ef_constraints_for_supporting_instances(
         ocel,
         coverage,
@@ -540,7 +540,7 @@ pub fn discover_ef_constraints_for_supporting_instances<
     ocel: &SlimLinkedOCEL,
     coverage: f32,
     supporting_instances: I,
-    supporting_object_type: &String,
+    supporting_object_type: &str,
 ) -> Vec<EFConstraint> {
     let _now = crate::timing::Timer::start();
     let mut ret = Vec::new();
@@ -638,7 +638,7 @@ pub fn discover_ef_constraints_for_supporting_instances<
                             to_ev_type: to_ev_type.to_string(),
                             min_duration_sec: Some(min),
                             max_duration_sec: Some(max),
-                            for_object_type: supporting_object_type.clone(),
+                            for_object_type: supporting_object_type.to_owned(),
                         });
                     }
                 }
@@ -775,7 +775,7 @@ pub fn discover_or_constraints_new(
         EventOrObjectType::Event(_) => Variable::Event(EventVariable(0)),
         EventOrObjectType::Object(_) => Variable::Object(ObjectVariable(0)),
     };
-    let bindings = generate_sample_bindings(ocel, &vec![ocel_type.clone()], variable.clone());
+    let bindings = generate_sample_bindings(ocel, std::slice::from_ref(ocel_type), variable.clone());
     let max_sat_count: usize = (1.1 * coverage * bindings.len() as f32).ceil() as usize;
     let b_instances = binding_to_instances(&bindings, variable.clone());
     count_constraints.into_iter().for_each(|cc| {
@@ -940,6 +940,7 @@ pub fn discover_or_constraints_new(
     ret
 }
 
+#[allow(clippy::too_many_arguments)]
 pub fn check_or_compat(
     ocel: &SlimLinkedOCEL,
     bindings: &Vec<Binding>,

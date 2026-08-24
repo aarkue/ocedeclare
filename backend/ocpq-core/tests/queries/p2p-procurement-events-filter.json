@@ -1,0 +1,45 @@
+{
+  "description": "Kept as a filter, so only the Procurement events remain. In this log `resource` is a pure function of event type, so it only discriminates across an event variable bound to several types: purchase orders (1598) and quotation requests (927) are raised by Procurement, invoice receipts (1941) by Finance.",
+  "expected": [
+    {
+      "situations": 2525,
+      "violated": 0
+    }
+  ],
+  "ocel": "p2p.xml.gz",
+  "tree": {
+    "edgeNames": [],
+    "nodes": [
+      {
+        "Box": [
+          {
+            "constraints": [],
+            "filters": [
+              {
+                "attribute_name": "resource",
+                "event": 0,
+                "type": "EventAttributeValueFilter",
+                "value_filter": {
+                  "is_in": [
+                    "Procurement Department"
+                  ],
+                  "type": "String"
+                }
+              }
+            ],
+            "newEventVars": {
+              "0": [
+                "Create Purchase Order",
+                "Create Request for Quotation",
+                "Create Invoice Receipt"
+              ]
+            },
+            "newObjectVars": {},
+            "sizeFilters": []
+          },
+          []
+        ]
+      }
+    ]
+  }
+}

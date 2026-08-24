@@ -1,0 +1,50 @@
+{
+  "description": "Ordered pairs of distinct customers, as a NotEqual constraint over two object variables of the same type. Mirrors the e2e NEQ journey.",
+  "expected": [
+    {
+      "reasons": {
+        "ConstraintNotSatisfied(0)": 15
+      },
+      "situations": 225,
+      "violated": 15
+    }
+  ],
+  "ocel": "order-management.xml.gz",
+  "tree": {
+    "edgeNames": [],
+    "nodes": [
+      {
+        "Box": [
+          {
+            "constraints": [
+              {
+                "filter": {
+                  "type": "NotEqual",
+                  "var_1": {
+                    "Object": 0
+                  },
+                  "var_2": {
+                    "Object": 1
+                  }
+                },
+                "type": "Filter"
+              }
+            ],
+            "filters": [],
+            "newEventVars": {},
+            "newObjectVars": {
+              "0": [
+                "customers"
+              ],
+              "1": [
+                "customers"
+              ]
+            },
+            "sizeFilters": []
+          },
+          []
+        ]
+      }
+    ]
+  }
+}

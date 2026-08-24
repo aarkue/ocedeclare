@@ -1,0 +1,41 @@
+{
+  "description": "A constraint naming a child edge that does not exist. Every binding is violated; this is the situation the unused `UnknownChildSet` reason was once for.",
+  "expected": [
+    {
+      "reasons": {
+        "ConstraintNotSatisfied(0)": 5
+      },
+      "situations": 5,
+      "violated": 5
+    }
+  ],
+  "ocel": "edge-cases.json",
+  "tree": {
+    "edgeNames": [],
+    "nodes": [
+      {
+        "Box": [
+          {
+            "constraints": [
+              {
+                "child_names": [
+                  "Nope"
+                ],
+                "type": "SAT"
+              }
+            ],
+            "filters": [],
+            "newEventVars": {},
+            "newObjectVars": {
+              "0": [
+                "order"
+              ]
+            },
+            "sizeFilters": []
+          },
+          []
+        ]
+      }
+    ]
+  }
+}

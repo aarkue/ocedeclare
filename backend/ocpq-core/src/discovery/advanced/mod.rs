@@ -24,7 +24,7 @@ use super::{
 // 1st Step: Allow building of  (simple) sampled bindings based on object/event type
 pub fn generate_sample_bindings(
     ocel: &SlimLinkedOCEL,
-    ocel_types: &Vec<EventOrObjectType>,
+    ocel_types: &[EventOrObjectType],
     target_variable: Variable,
 ) -> Vec<Binding> {
     let mut rng = StdRng::seed_from_u64(RNG_SEED);
@@ -67,7 +67,7 @@ pub fn generate_sample_bindings(
 }
 
 pub fn binding_to_instances(
-    bindings: &Vec<Binding>,
+    bindings: &[Binding],
     variable: Variable,
 ) -> Vec<Option<EventOrObjectIndex>> {
     bindings

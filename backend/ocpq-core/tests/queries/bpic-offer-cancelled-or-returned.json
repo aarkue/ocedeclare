@@ -1,0 +1,190 @@
+{
+  "description": "Every Offer is either cancelled or returned. OR over two branches, no time bound.",
+  "expected": [
+    {
+      "reasons": {
+        "ConstraintNotSatisfied(0)": 1247
+      },
+      "situations": 42995,
+      "violated": 1247
+    },
+    {
+      "reasons": {
+        "ConstraintNotSatisfied(0)": 22097
+      },
+      "situations": 42995,
+      "violated": 22097
+    },
+    {
+      "situations": 20898,
+      "violated": 0
+    },
+    {
+      "reasons": {
+        "ConstraintNotSatisfied(0)": 19690
+      },
+      "situations": 42995,
+      "violated": 19690
+    },
+    {
+      "situations": 23305,
+      "violated": 0
+    }
+  ],
+  "ocel": "bpic2017.xml.gz",
+  "tree": {
+    "edgeNames": [
+      [
+        [
+          0,
+          1
+        ],
+        "A"
+      ],
+      [
+        [
+          3,
+          4
+        ],
+        "Y"
+      ],
+      [
+        [
+          1,
+          2
+        ],
+        "X"
+      ],
+      [
+        [
+          0,
+          3
+        ],
+        "B"
+      ]
+    ],
+    "nodes": [
+      {
+        "Box": [
+          {
+            "constraints": [
+              {
+                "child_names": [
+                  "A",
+                  "B"
+                ],
+                "type": "OR"
+              }
+            ],
+            "filters": [],
+            "newEventVars": {},
+            "newObjectVars": {
+              "0": [
+                "Offer"
+              ]
+            },
+            "sizeFilters": []
+          },
+          [
+            1,
+            3
+          ]
+        ]
+      },
+      {
+        "Box": [
+          {
+            "constraints": [
+              {
+                "filter": {
+                  "child_name": "X",
+                  "max": 1,
+                  "min": 1,
+                  "type": "NumChilds"
+                },
+                "type": "SizeFilter"
+              }
+            ],
+            "filters": [],
+            "newEventVars": {},
+            "newObjectVars": {},
+            "sizeFilters": []
+          },
+          [
+            2
+          ]
+        ]
+      },
+      {
+        "Box": [
+          {
+            "constraints": [],
+            "filters": [
+              {
+                "event": 2,
+                "object": 0,
+                "qualifier": null,
+                "type": "O2E"
+              }
+            ],
+            "newEventVars": {
+              "2": [
+                "O_Cancelled"
+              ]
+            },
+            "newObjectVars": {},
+            "sizeFilters": []
+          },
+          []
+        ]
+      },
+      {
+        "Box": [
+          {
+            "constraints": [
+              {
+                "filter": {
+                  "child_name": "Y",
+                  "max": 1,
+                  "min": 1,
+                  "type": "NumChilds"
+                },
+                "type": "SizeFilter"
+              }
+            ],
+            "filters": [],
+            "newEventVars": {},
+            "newObjectVars": {},
+            "sizeFilters": []
+          },
+          [
+            4
+          ]
+        ]
+      },
+      {
+        "Box": [
+          {
+            "constraints": [],
+            "filters": [
+              {
+                "event": 1,
+                "object": 0,
+                "qualifier": null,
+                "type": "O2E"
+              }
+            ],
+            "newEventVars": {
+              "1": [
+                "O_Returned"
+              ]
+            },
+            "newObjectVars": {},
+            "sizeFilters": []
+          },
+          []
+        ]
+      }
+    ]
+  }
+}

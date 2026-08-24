@@ -1,0 +1,50 @@
+{
+  "description": "NotEqual over two object variables of the same type: the 5x5 order pairs minus the diagonal.",
+  "expected": [
+    {
+      "reasons": {
+        "ConstraintNotSatisfied(0)": 5
+      },
+      "situations": 25,
+      "violated": 5
+    }
+  ],
+  "ocel": "edge-cases.json",
+  "tree": {
+    "edgeNames": [],
+    "nodes": [
+      {
+        "Box": [
+          {
+            "constraints": [
+              {
+                "filter": {
+                  "type": "NotEqual",
+                  "var_1": {
+                    "Object": 0
+                  },
+                  "var_2": {
+                    "Object": 1
+                  }
+                },
+                "type": "Filter"
+              }
+            ],
+            "filters": [],
+            "newEventVars": {},
+            "newObjectVars": {
+              "0": [
+                "order"
+              ],
+              "1": [
+                "order"
+              ]
+            },
+            "sizeFilters": []
+          },
+          []
+        ]
+      }
+    ]
+  }
+}

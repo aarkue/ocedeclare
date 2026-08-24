@@ -1,0 +1,118 @@
+{
+  "description": "After A_Accepted, each of the Application's Offers has a later O_Accepted. O2O and E2O together in one child. (eval-repo Q4)",
+  "expected": [
+    {
+      "reasons": {
+        "ConstraintNotSatisfied(0)": 14281
+      },
+      "situations": 31509,
+      "violated": 14281
+    },
+    {
+      "situations": 17228,
+      "violated": 0
+    }
+  ],
+  "ocel": "bpic2017.xml.gz",
+  "tree": {
+    "edgeNames": [
+      [
+        [
+          0,
+          1
+        ],
+        "A"
+      ]
+    ],
+    "nodes": [
+      {
+        "Box": [
+          {
+            "constraints": [
+              {
+                "filter": {
+                  "child_name": "A",
+                  "max": null,
+                  "min": 1,
+                  "type": "NumChilds"
+                },
+                "type": "SizeFilter"
+              }
+            ],
+            "evVarLabels": {},
+            "filters": [
+              {
+                "event": 0,
+                "filterLabel": null,
+                "object": 0,
+                "qualifier": null,
+                "type": "O2E"
+              }
+            ],
+            "labels": [],
+            "newEventVars": {
+              "0": [
+                "A_Accepted"
+              ]
+            },
+            "newObjectVars": {
+              "0": [
+                "Application"
+              ]
+            },
+            "obVarLabels": {},
+            "sizeFilters": []
+          },
+          [
+            1
+          ]
+        ]
+      },
+      {
+        "Box": [
+          {
+            "constraints": [],
+            "evVarLabels": {},
+            "filters": [
+              {
+                "filterLabel": null,
+                "object": 0,
+                "other_object": 1,
+                "qualifier": null,
+                "type": "O2O"
+              },
+              {
+                "event": 1,
+                "filterLabel": null,
+                "object": 1,
+                "qualifier": null,
+                "type": "O2E"
+              },
+              {
+                "from_event": 0,
+                "max_seconds": null,
+                "min_seconds": 0.0,
+                "to_event": 1,
+                "type": "TimeBetweenEvents"
+              }
+            ],
+            "labels": [],
+            "newEventVars": {
+              "1": [
+                "O_Accepted"
+              ]
+            },
+            "newObjectVars": {
+              "1": [
+                "Offer"
+              ]
+            },
+            "obVarLabels": {},
+            "sizeFilters": []
+          },
+          []
+        ]
+      }
+    ]
+  }
+}

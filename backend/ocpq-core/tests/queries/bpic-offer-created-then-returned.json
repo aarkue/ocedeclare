@@ -1,0 +1,107 @@
+{
+  "description": "Every O_Created of an Offer is eventually followed by an O_Returned of the same Offer. NumChilds >= 1 over a child carrying an E2O and a TimeBetweenEvents filter. (eval-repo Q2)",
+  "expected": [
+    {
+      "reasons": {
+        "ConstraintNotSatisfied(0)": 19690
+      },
+      "situations": 42995,
+      "violated": 19690
+    },
+    {
+      "situations": 23305,
+      "violated": 0
+    }
+  ],
+  "ocel": "bpic2017.xml.gz",
+  "tree": {
+    "edgeNames": [
+      [
+        [
+          0,
+          1
+        ],
+        "A"
+      ]
+    ],
+    "nodes": [
+      {
+        "Box": [
+          {
+            "constraints": [
+              {
+                "filter": {
+                  "child_name": "A",
+                  "max": null,
+                  "min": 1,
+                  "type": "NumChilds"
+                },
+                "type": "SizeFilter"
+              }
+            ],
+            "evVarLabels": {},
+            "filters": [
+              {
+                "event": 0,
+                "filterLabel": null,
+                "object": 0,
+                "qualifier": null,
+                "type": "O2E"
+              }
+            ],
+            "labels": [],
+            "newEventVars": {
+              "0": [
+                "O_Created"
+              ]
+            },
+            "newObjectVars": {
+              "0": [
+                "Offer"
+              ]
+            },
+            "obVarLabels": {},
+            "sizeFilters": []
+          },
+          [
+            1
+          ]
+        ]
+      },
+      {
+        "Box": [
+          {
+            "constraints": [],
+            "evVarLabels": {},
+            "filters": [
+              {
+                "event": 1,
+                "filterLabel": null,
+                "object": 0,
+                "qualifier": null,
+                "type": "O2E"
+              },
+              {
+                "from_event": 0,
+                "max_seconds": null,
+                "min_seconds": 0.0,
+                "to_event": 1,
+                "type": "TimeBetweenEvents"
+              }
+            ],
+            "labels": [],
+            "newEventVars": {
+              "1": [
+                "O_Returned"
+              ]
+            },
+            "newObjectVars": {},
+            "obVarLabels": {},
+            "sizeFilters": []
+          },
+          []
+        ]
+      }
+    ]
+  }
+}

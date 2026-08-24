@@ -1,0 +1,31 @@
+{
+  "description": "Binding an event type where one event (e10) has no object relationships at all.",
+  "expected": [
+    {
+      "situations": 2,
+      "violated": 0
+    }
+  ],
+  "ocel": "edge-cases.json",
+  "tree": {
+    "edgeNames": [],
+    "nodes": [
+      {
+        "Box": [
+          {
+            "constraints": [],
+            "filters": [],
+            "newEventVars": {
+              "0": [
+                "ship"
+              ]
+            },
+            "newObjectVars": {},
+            "sizeFilters": []
+          },
+          []
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "description": "Every invoice receipt is paid within 30 days of being created. Chains O2E with TimeBetweenEvents across two event variables of one object.",
+  "expected": [
+    {
+      "situations": 1941,
+      "violated": 0
+    },
+    {
+      "situations": 2437,
+      "violated": 0
+    }
+  ],
+  "ocel": "p2p.xml.gz",
+  "tree": {
+    "edgeNames": [
+      [
+        [
+          0,
+          1
+        ],
+        "A"
+      ]
+    ],
+    "nodes": [
+      {
+        "Box": [
+          {
+            "constraints": [
+              {
+                "filter": {
+                  "child_name": "A",
+                  "max": null,
+                  "min": 1,
+                  "type": "NumChilds"
+                },
+                "type": "SizeFilter"
+              }
+            ],
+            "filters": [
+              {
+                "event": 0,
+                "object": 0,
+                "qualifier": null,
+                "type": "O2E"
+              }
+            ],
+            "newEventVars": {
+              "0": [
+                "Create Invoice Receipt"
+              ]
+            },
+            "newObjectVars": {
+              "0": [
+                "invoice receipt"
+              ]
+            },
+            "sizeFilters": []
+          },
+          [
+            1
+          ]
+        ]
+      },
+      {
+        "Box": [
+          {
+            "constraints": [],
+            "filters": [
+              {
+                "event": 1,
+                "object": 0,
+                "qualifier": null,
+                "type": "O2E"
+              },
+              {
+                "from_event": 0,
+                "max_seconds": 2592000.0,
+                "min_seconds": 0.0,
+                "to_event": 1,
+                "type": "TimeBetweenEvents"
+              }
+            ],
+            "newEventVars": {
+              "1": [
+                "Execute Payment"
+              ]
+            },
+            "newObjectVars": {},
+            "sizeFilters": []
+          },
+          []
+        ]
+      }
+    ]
+  }
+}

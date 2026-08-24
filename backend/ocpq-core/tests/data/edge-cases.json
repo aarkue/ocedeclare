@@ -1,0 +1,193 @@
+{
+  "objectTypes": [
+    {
+      "name": "order",
+      "attributes": [
+        { "name": "total", "type": "float" },
+        { "name": "count", "type": "integer" },
+        { "name": "rush", "type": "boolean" },
+        { "name": "region", "type": "string" },
+        { "name": "due", "type": "time" }
+      ]
+    },
+    { "name": "customer", "attributes": [] }
+  ],
+  "eventTypes": [
+    {
+      "name": "place",
+      "attributes": [
+        { "name": "amount", "type": "integer" },
+        { "name": "channel", "type": "string" }
+      ]
+    },
+    { "name": "pay", "attributes": [] },
+    { "name": "ship", "attributes": [] },
+    { "name": "cancel", "attributes": [] }
+  ],
+  "objects": [
+    {
+      "id": "o1",
+      "type": "order",
+      "relationships": [],
+      "attributes": [
+        { "name": "total", "value": 100.0, "time": "1970-01-01T00:00:00Z" },
+        { "name": "count", "value": 3, "time": "1970-01-01T00:00:00Z" },
+        { "name": "rush", "value": true, "time": "1970-01-01T00:00:00Z" },
+        { "name": "region", "value": "eu", "time": "1970-01-01T00:00:00Z" },
+        { "name": "due", "value": "2024-03-01T00:00:00Z", "time": "1970-01-01T00:00:00Z" }
+      ]
+    },
+    {
+      "id": "o2",
+      "type": "order",
+      "relationships": [],
+      "attributes": [
+        { "name": "total", "value": 250.0, "time": "1970-01-01T00:00:00Z" },
+        { "name": "count", "value": 1, "time": "1970-01-01T00:00:00Z" },
+        { "name": "rush", "value": false, "time": "1970-01-01T00:00:00Z" },
+        { "name": "region", "value": "us", "time": "1970-01-01T00:00:00Z" },
+        { "name": "due", "value": "2024-04-01T00:00:00Z", "time": "1970-01-01T00:00:00Z" }
+      ]
+    },
+    {
+      "id": "o3",
+      "type": "order",
+      "relationships": [],
+      "attributes": [
+        { "name": "total", "value": 50.0, "time": "1970-01-01T00:00:00Z" },
+        { "name": "count", "value": 7, "time": "1970-01-01T00:00:00Z" },
+        { "name": "rush", "value": true, "time": "1970-01-01T00:00:00Z" },
+        { "name": "region", "value": "eu", "time": "1970-01-01T00:00:00Z" },
+        { "name": "due", "value": "2024-05-01T00:00:00Z", "time": "1970-01-01T00:00:00Z" }
+      ]
+    },
+    {
+      "id": "o4",
+      "type": "order",
+      "relationships": [],
+      "attributes": [
+        { "name": "total", "value": 400.0, "time": "1970-01-01T00:00:00Z" },
+        { "name": "count", "value": 2, "time": "1970-01-01T00:00:00Z" },
+        { "name": "rush", "value": false, "time": "1970-01-01T00:00:00Z" },
+        { "name": "region", "value": "apac", "time": "1970-01-01T00:00:00Z" },
+        { "name": "due", "value": "2024-06-01T00:00:00Z", "time": "1970-01-01T00:00:00Z" }
+      ]
+    },
+    {
+      "id": "o5",
+      "type": "order",
+      "relationships": [],
+      "attributes": [
+        { "name": "total", "value": 10.0, "time": "1970-01-01T00:00:00Z" },
+        { "name": "count", "value": 0, "time": "1970-01-01T00:00:00Z" },
+        { "name": "rush", "value": false, "time": "1970-01-01T00:00:00Z" },
+        { "name": "region", "value": "eu", "time": "1970-01-01T00:00:00Z" },
+        { "name": "due", "value": "2024-07-01T00:00:00Z", "time": "1970-01-01T00:00:00Z" }
+      ]
+    },
+    {
+      "id": "c1",
+      "type": "customer",
+      "attributes": [],
+      "relationships": [
+        { "objectId": "o1", "qualifier": "places" },
+        { "objectId": "o2", "qualifier": "places" }
+      ]
+    },
+    {
+      "id": "c2",
+      "type": "customer",
+      "attributes": [],
+      "relationships": [
+        { "objectId": "o3", "qualifier": "places" },
+        { "objectId": "o4", "qualifier": "places" },
+        { "objectId": "o5", "qualifier": "places" }
+      ]
+    },
+    { "id": "c3", "type": "customer", "attributes": [], "relationships": [] }
+  ],
+  "events": [
+    {
+      "id": "e1",
+      "type": "place",
+      "time": "2024-01-01T00:00:00Z",
+      "attributes": [
+        { "name": "amount", "value": 100 },
+        { "name": "channel", "value": "web" }
+      ],
+      "relationships": [{ "objectId": "o1", "qualifier": "order" }]
+    },
+    {
+      "id": "e2",
+      "type": "pay",
+      "time": "2024-01-02T00:00:00Z",
+      "attributes": [],
+      "relationships": [{ "objectId": "o1", "qualifier": "order" }]
+    },
+    {
+      "id": "e3",
+      "type": "ship",
+      "time": "2024-01-03T00:00:00Z",
+      "attributes": [],
+      "relationships": [{ "objectId": "o1", "qualifier": "order" }]
+    },
+    {
+      "id": "e4",
+      "type": "place",
+      "time": "2024-01-04T00:00:00Z",
+      "attributes": [
+        { "name": "amount", "value": 250 },
+        { "name": "channel", "value": "phone" }
+      ],
+      "relationships": [{ "objectId": "o2", "qualifier": "order" }]
+    },
+    {
+      "id": "e5",
+      "type": "cancel",
+      "time": "2024-01-05T00:00:00Z",
+      "attributes": [],
+      "relationships": [{ "objectId": "o2", "qualifier": "order" }]
+    },
+    {
+      "id": "e6",
+      "type": "place",
+      "time": "2024-01-06T00:00:00Z",
+      "attributes": [
+        { "name": "amount", "value": 50 },
+        { "name": "channel", "value": "web" }
+      ],
+      "relationships": [{ "objectId": "o3", "qualifier": "order" }]
+    },
+    {
+      "id": "e7",
+      "type": "pay",
+      "time": "2024-01-07T00:00:00Z",
+      "attributes": [],
+      "relationships": [{ "objectId": "o3", "qualifier": "order" }]
+    },
+    {
+      "id": "e8",
+      "type": "pay",
+      "time": "2024-01-08T00:00:00Z",
+      "attributes": [],
+      "relationships": [{ "objectId": "o3", "qualifier": "order" }]
+    },
+    {
+      "id": "e9",
+      "type": "place",
+      "time": "2024-01-09T00:00:00Z",
+      "attributes": [
+        { "name": "amount", "value": 400 },
+        { "name": "channel", "value": "web" }
+      ],
+      "relationships": [{ "objectId": "o4", "qualifier": "order" }]
+    },
+    {
+      "id": "e10",
+      "type": "ship",
+      "time": "2024-01-10T00:00:00Z",
+      "attributes": [],
+      "relationships": []
+    }
+  ]
+}

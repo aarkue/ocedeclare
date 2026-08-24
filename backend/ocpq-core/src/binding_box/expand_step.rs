@@ -77,7 +77,7 @@ impl BindingBox {
             &mut bootstrap,
             &bootstrap_counter,
             ocel,
-            &steps,
+            steps,
             1,
             0,
         )?;
@@ -148,6 +148,7 @@ impl BindingBox {
         Ok((count, limit > MAX_NUM_BINDINGS && count >= MAX_NUM_BINDINGS))
     }
 
+    #[allow(clippy::too_many_arguments)]
     fn apply_step_recursive(
         &self,
         b: &mut Binding,
@@ -165,6 +166,7 @@ impl BindingBox {
         self.apply_step_recursive_emit(b, counter, ocel, steps, idx, max_depth, MAX_NUM_BINDINGS, &mut emit)
     }
 
+    #[allow(clippy::too_many_arguments)]
     fn apply_step_recursive_emit<F>(
         &self,
         b: &mut Binding,

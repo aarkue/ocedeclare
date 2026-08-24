@@ -1,0 +1,36 @@
+{
+  "description": "Orders priced above 5000, expressed as a BasicFilterCEL instead of an attribute filter. Mirrors the e2e CEL journey.",
+  "expected": [
+    {
+      "situations": 170,
+      "violated": 0
+    }
+  ],
+  "ocel": "order-management.xml.gz",
+  "tree": {
+    "edgeNames": [],
+    "nodes": [
+      {
+        "Box": [
+          {
+            "constraints": [],
+            "filters": [
+              {
+                "cel": "o1.attr('price') > 5000.0",
+                "type": "BasicFilterCEL"
+              }
+            ],
+            "newEventVars": {},
+            "newObjectVars": {
+              "0": [
+                "orders"
+              ]
+            },
+            "sizeFilters": []
+          },
+          []
+        ]
+      }
+    ]
+  }
+}

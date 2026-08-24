@@ -664,10 +664,7 @@ export default function PathSchemasViewer() {
 						</div>
 						{typeGraph && (
 							<R4pmIsland className="w-full h-full">
-								<ViewerExportFrame
-									filename="type-graph"
-									style={{ width: "100%", height: "100%" }}
-								>
+								<ViewerExportFrame filename="type-graph" style={{ width: "100%", height: "100%" }}>
 									<OcelTypeGraph
 										nodes={graphNodes}
 										edges={graphEdges}

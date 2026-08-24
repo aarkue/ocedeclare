@@ -67,9 +67,6 @@ async fn execute_binding(
 #[tauri::command]
 fn list_functions() -> Vec<backend_shared::process_mining::bindings::BindingMeta> {
     backend_shared::list_functions()
-        .into_iter()
-        .map(Into::into)
-        .collect()
 }
 
 #[tauri::command]
@@ -335,12 +332,22 @@ mod base64_tests {
 }
 
 fn main() {
-    tauri::Builder::default()
+    // The wdio plugins install a `log` logger of their own, so they have to come after
+    // `tauri_plugin_log`, which panics if anything claimed the global logger first.
+    #[allow(unused_mut)]
+    let mut builder = tauri::Builder::default()
         .plugin(tauri_plugin_log::Builder::new().build())
         .plugin(tauri_plugin_process::init())
         .plugin(tauri_plugin_updater::Builder::new().build())
         .plugin(tauri_plugin_fs::init())
-        .plugin(tauri_plugin_dialog::init())
+        .plugin(tauri_plugin_dialog::init());
+    #[cfg(feature = "wdio")]
+    {
+        builder = builder
+            .plugin(tauri_plugin_wdio::init())
+            .plugin(tauri_plugin_wdio_webdriver::init());
+    }
+    builder
         .setup(
             #[allow(unused_variables)]
             // `initial_files` is only populated on the platforms that pass them as CLI args.

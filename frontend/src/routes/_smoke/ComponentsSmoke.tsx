@@ -1,5 +1,5 @@
-import { Theme } from "@r4pm/components/ui";
 import { OCELCountInfo } from "@r4pm/components";
+import { Theme } from "@r4pm/components/ui";
 
 // Dev-only smoke check that @r4pm/components imports, transpiles, styles, and themes correctly
 // inside OCPQ. Not linked in the nav. Remove once the real track swaps land.

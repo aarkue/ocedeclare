@@ -1,0 +1,53 @@
+{
+  "description": "String object-attribute filter: `region` in {eu, us}. Only o4 (apac) fails.",
+  "expected": [
+    {
+      "reasons": {
+        "ConstraintNotSatisfied(0)": 1
+      },
+      "situations": 5,
+      "violated": 1
+    }
+  ],
+  "ocel": "edge-cases.json",
+  "tree": {
+    "edgeNames": [],
+    "nodes": [
+      {
+        "Box": [
+          {
+            "constraints": [
+              {
+                "filter": {
+                  "at_time": {
+                    "type": "Sometime"
+                  },
+                  "attribute_name": "region",
+                  "object": 0,
+                  "type": "ObjectAttributeValueFilter",
+                  "value_filter": {
+                    "is_in": [
+                      "eu",
+                      "us"
+                    ],
+                    "type": "String"
+                  }
+                },
+                "type": "Filter"
+              }
+            ],
+            "filters": [],
+            "newEventVars": {},
+            "newObjectVars": {
+              "0": [
+                "order"
+              ]
+            },
+            "sizeFilters": []
+          },
+          []
+        ]
+      }
+    ]
+  }
+}

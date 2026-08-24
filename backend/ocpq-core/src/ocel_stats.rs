@@ -78,7 +78,7 @@ fn linspace_hist(vals: &[f64], nbins: usize) -> (Vec<f64>, Vec<usize>) {
     }
     let min = vals.iter().cloned().fold(f64::INFINITY, f64::min);
     let max = vals.iter().cloned().fold(f64::NEG_INFINITY, f64::max);
-    if !(max > min) {
+    if !matches!(max.partial_cmp(&min), Some(std::cmp::Ordering::Greater)) {
         // Single distinct value: one degenerate bin.
         return (vec![min, min + 1.0], vec![vals.len()]);
     }

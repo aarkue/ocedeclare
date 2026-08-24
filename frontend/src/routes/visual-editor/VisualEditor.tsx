@@ -7,6 +7,7 @@ import {
 	type OnConnectEnd,
 	Panel,
 	ReactFlow,
+	useNodesInitialized,
 	useReactFlow,
 } from "@xyflow/react";
 import {
@@ -61,12 +62,13 @@ import {
 	NODE_TYPE_SIZE,
 	nodeTypes,
 } from "./helper/const";
+import { emptyBoxNode } from "./helper/constructNodes";
 import DatabaseTranslationButton from "./helper/DatabaseTranslationButton";
 import {
 	evaluateConstraints,
-	mergeSubTrees,
 	getParentNodeID,
 	getParentsNodeIDs,
+	mergeSubTrees,
 } from "./helper/evaluation/evaluate-constraints";
 import { FlowContext } from "./helper/FlowContext";
 import { applyLayoutToNodes } from "./helper/LayoutFlow";
@@ -135,6 +137,20 @@ export default function VisualEditor(props: VisualEditorProps) {
 			});
 		}
 	}
+
+	// Frame the query when it is opened. Fitting has to wait for React Flow to measure the boxes,
+	// since before that it has no sizes to fit to. The `maxZoom` cap only binds when the content is
+	// small. Uncapped, a lone box fills the canvas; at scale 1 it is a stamp in an empty pane. At 2 it
+	// takes up about 40% of the width.
+	const nodesInitialized = useNodesInitialized();
+	const fittedNodes = useRef<unknown>(undefined);
+	useEffect(() => {
+		if (!nodesInitialized || fittedNodes.current === otherData?.nodes) {
+			return;
+		}
+		fittedNodes.current = otherData?.nodes;
+		void instance.fitView({ padding: 0.2, maxZoom: 2 });
+	}, [nodesInitialized, otherData?.nodes, instance]);
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: violationInfo intentionally excluded to avoid re-render loop
 	useEffect(() => {
@@ -319,39 +335,21 @@ export default function VisualEditor(props: VisualEditorProps) {
 
 	const addNewNode = useCallback(
 		(x: number | undefined = undefined, y: number | undefined = undefined) => {
-			const id = v4();
-			instance.setNodes((nodes) => {
-				const pos =
-					x === undefined || y === undefined
-						? instance.screenToFlowPosition({
-								x: window.innerWidth / 2,
-								y: window.innerHeight / 1.5,
-							})
-						: { x, y };
-				return [
-					...nodes,
-					{
-						id,
-						type: EVENT_TYPE_NODE_TYPE,
-						position: {
-							x: pos.x - NODE_TYPE_SIZE[EVENT_TYPE_NODE_TYPE].width / 2,
-							y: pos.y - NODE_TYPE_SIZE[EVENT_TYPE_NODE_TYPE].minHeight / 2,
-						},
-						data: {
-							box: {
-								newEventVars: {},
-								newObjectVars: {},
-								filters: [],
-								sizeFilters: [],
-								constraints: [],
-								evVarLabels: {},
-								obVarLabels: {},
-							},
-						} satisfies EventTypeNodeData,
-					},
-				];
+			const pos =
+				x === undefined || y === undefined
+					? instance.screenToFlowPosition({
+							x: window.innerWidth / 2,
+							y: window.innerHeight / 1.5,
+						})
+					: { x, y };
+			// Built before the update so the id can be returned synchronously; `onConnectEnd` wires
+			// an edge to it straight away.
+			const node = emptyBoxNode({
+				x: pos.x - NODE_TYPE_SIZE[EVENT_TYPE_NODE_TYPE].width / 2,
+				y: pos.y - NODE_TYPE_SIZE[EVENT_TYPE_NODE_TYPE].minHeight / 2,
 			});
-			return id;
+			instance.setNodes((nodes) => [...nodes, node]);
+			return node.id;
 		},
 		[instance],
 	);

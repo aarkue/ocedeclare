@@ -32,7 +32,10 @@ export function ObVarName({ obVar, disabledStyle }: { obVar: number; disabledSty
 	const varInfo = getVarName(obVar, "object");
 	return (
 		<span
-			className={clsx("font-mono font-semibold min-w-fit", disabledStyle === true && "text-stone-400")}
+			className={clsx(
+				"font-mono font-semibold min-w-fit",
+				disabledStyle === true && "text-stone-400",
+			)}
 			style={{ color: disabledStyle === true ? undefined : varInfo.color }}
 		>
 			<LuBox className="inline-block -mr-1.5" /> {varInfo.name}

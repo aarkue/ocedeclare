@@ -10,8 +10,8 @@ import {
 	OC_DECLARE_LOCALSTORAGE_SAVE_KEY_DATA,
 	parseLocalStorageValue,
 } from "@/lib/local-storage";
-import OCDeclareEditor, { type PersistedFlow } from "./OCDeclareEditor";
 import type { OCDeclareMetaData } from "./flow/oc-declare-flow-data";
+import OCDeclareEditor, { type PersistedFlow } from "./OCDeclareEditor";
 
 type OCDeclareFlowData = { flowJson: PersistedFlow };
 

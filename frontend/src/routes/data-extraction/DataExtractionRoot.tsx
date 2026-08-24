@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { useState } from "react";
 import { BsPlusCircle } from "react-icons/bs";
-import { TbInfoCircle, TbTrash } from "react-icons/tb";
+import { TbTrash } from "react-icons/tb";
 import { Link, useNavigate } from "react-router-dom";
 import AutoSizer from "react-virtualized-auto-sizer";
 import { FixedSizeList, type ListChildComponentProps } from "react-window";
@@ -44,7 +44,10 @@ export default function DataExtractionRoot() {
 				Data Extraction Blueprints
 			</h2>
 			<h4 className="font-semibold text-lg tracking-tight">Manage Data Extraction Blueprints</h4>
-			<p>Extract object-centric event data from databases (SQLite, PostgresSQL, DuckDB) or files (CSV, XLSX, Parquet).</p>
+			<p>
+				Extract object-centric event data from databases (SQLite, PostgresSQL, DuckDB) or files
+				(CSV, XLSX, Parquet).
+			</p>
 			<div className="flex justify-between items-center mt-2 mb-3">
 				<Button
 					className="cursor-pointer"

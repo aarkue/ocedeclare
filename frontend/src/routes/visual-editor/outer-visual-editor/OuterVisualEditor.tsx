@@ -30,6 +30,7 @@ import {
 	QUERY_LOCALSTORAGE_SAVE_KEY_DATA,
 } from "@/lib/local-storage";
 import type { FlowAndViolationData } from "@/types/misc";
+import { emptyBoxNode } from "../helper/constructNodes";
 import { FlowContext } from "../helper/FlowContext";
 import type {
 	ConstraintInfo,
@@ -41,6 +42,11 @@ import type {
 import TotalViolationInfo from "../TotalViolationInfo";
 import VisualEditor from "../VisualEditor";
 import AutoDiscoveryButton from "./AutoDiscovery";
+
+/** Where the box a new query starts with is placed. The editor fits the view when a query is opened,
+ *  so this only decides the box's flow coordinates, not where it ends up on screen. */
+const SEED_NODE_POSITION = { x: 40, y: 30 };
+const SEED_VIEWPORT = { x: 0, y: 0, zoom: 1 };
 
 export default function VisualEditorOuter() {
 	const ocelInfo = useOcelInfo();
@@ -387,6 +393,15 @@ export default function VisualEditorOuter() {
 														// size="lg"
 														onClick={() => {
 															prevDataRef.current.splice(constraints.length, 1);
+															// Start with one box, so the query opens with something to
+															// drag a child out of.
+															prevDataRef.current[constraints.length] = {
+																flowJson: {
+																	nodes: [emptyBoxNode(SEED_NODE_POSITION)],
+																	edges: [],
+																	viewport: SEED_VIEWPORT,
+																},
+															};
 															setConstraints((cs) => [
 																...cs,
 																{
@@ -426,6 +441,13 @@ export default function VisualEditorOuter() {
 												<Button
 													className="text-lg h-14"
 													onClick={() => {
+														prevDataRef.current[constraints.length] = {
+															flowJson: {
+																nodes: [emptyBoxNode(SEED_NODE_POSITION)],
+																edges: [],
+																viewport: SEED_VIEWPORT,
+															},
+														};
 														changeIndex(constraints.length, constraints.length + 1);
 														setConstraints((cs) => [
 															...cs,

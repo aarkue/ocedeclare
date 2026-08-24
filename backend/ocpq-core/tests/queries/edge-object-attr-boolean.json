@@ -1,0 +1,50 @@
+{
+  "description": "Boolean object-attribute filter: `rush` must be true. Only o1 and o3 are rush orders.",
+  "expected": [
+    {
+      "reasons": {
+        "ConstraintNotSatisfied(0)": 3
+      },
+      "situations": 5,
+      "violated": 3
+    }
+  ],
+  "ocel": "edge-cases.json",
+  "tree": {
+    "edgeNames": [],
+    "nodes": [
+      {
+        "Box": [
+          {
+            "constraints": [
+              {
+                "filter": {
+                  "at_time": {
+                    "type": "Sometime"
+                  },
+                  "attribute_name": "rush",
+                  "object": 0,
+                  "type": "ObjectAttributeValueFilter",
+                  "value_filter": {
+                    "is_true": true,
+                    "type": "Boolean"
+                  }
+                },
+                "type": "Filter"
+              }
+            ],
+            "filters": [],
+            "newEventVars": {},
+            "newObjectVars": {
+              "0": [
+                "order"
+              ]
+            },
+            "sizeFilters": []
+          },
+          []
+        ]
+      }
+    ]
+  }
+}

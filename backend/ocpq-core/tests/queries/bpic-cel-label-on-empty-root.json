@@ -1,0 +1,90 @@
+{
+  "description": "A root box with no variables at all, carrying only a CEL label over its child. Root therefore has a single empty binding. (eval-repo Q6)",
+  "expected": [
+    {
+      "situations": 1,
+      "violated": 0
+    },
+    {
+      "situations": 17228,
+      "violated": 0
+    }
+  ],
+  "ocel": "bpic2017.xml.gz",
+  "tree": {
+    "edgeNames": [
+      [
+        [
+          0,
+          1
+        ],
+        "A"
+      ]
+    ],
+    "nodes": [
+      {
+        "Box": [
+          {
+            "constraints": [],
+            "evVarLabels": {},
+            "filters": [],
+            "labels": [
+              {
+                "cel": "string(max(A.map(b,b['e2'].time() - b['e1'].time())))",
+                "label": "max_dur"
+              }
+            ],
+            "newEventVars": {},
+            "newObjectVars": {},
+            "obVarLabels": {},
+            "sizeFilters": []
+          },
+          [
+            1
+          ]
+        ]
+      },
+      {
+        "Box": [
+          {
+            "constraints": [],
+            "evVarLabels": {},
+            "filters": [
+              {
+                "event": 0,
+                "filterLabel": null,
+                "object": 0,
+                "qualifier": null,
+                "type": "O2E"
+              },
+              {
+                "event": 1,
+                "filterLabel": null,
+                "object": 0,
+                "qualifier": null,
+                "type": "O2E"
+              }
+            ],
+            "labels": [],
+            "newEventVars": {
+              "0": [
+                "O_Created"
+              ],
+              "1": [
+                "O_Accepted"
+              ]
+            },
+            "newObjectVars": {
+              "0": [
+                "Offer"
+              ]
+            },
+            "obVarLabels": {},
+            "sizeFilters": []
+          },
+          []
+        ]
+      }
+    ]
+  }
+}

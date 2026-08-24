@@ -1,0 +1,51 @@
+{
+  "description": "Applied as a constraint, so every event stays a situation and the Finance ones are violations. In this log `resource` is a pure function of event type, so it only discriminates across an event variable bound to several types: purchase orders (1598) and quotation requests (927) are raised by Procurement, invoice receipts (1941) by Finance.",
+  "expected": [
+    {
+      "reasons": {
+        "ConstraintNotSatisfied(0)": 1941
+      },
+      "situations": 4466,
+      "violated": 1941
+    }
+  ],
+  "ocel": "p2p.xml.gz",
+  "tree": {
+    "edgeNames": [],
+    "nodes": [
+      {
+        "Box": [
+          {
+            "constraints": [
+              {
+                "filter": {
+                  "attribute_name": "resource",
+                  "event": 0,
+                  "type": "EventAttributeValueFilter",
+                  "value_filter": {
+                    "is_in": [
+                      "Procurement Department"
+                    ],
+                    "type": "String"
+                  }
+                },
+                "type": "Filter"
+              }
+            ],
+            "filters": [],
+            "newEventVars": {
+              "0": [
+                "Create Purchase Order",
+                "Create Request for Quotation",
+                "Create Invoice Receipt"
+              ]
+            },
+            "newObjectVars": {},
+            "sizeFilters": []
+          },
+          []
+        ]
+      }
+    ]
+  }
+}

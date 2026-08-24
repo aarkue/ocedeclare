@@ -1,0 +1,81 @@
+{
+  "description": "Every purchase requisition is approved exactly once. NumChilds 1..1 over an O2E child, on a log whose approvals can also be delegated.",
+  "expected": [
+    {
+      "reasons": {
+        "ConstraintNotSatisfied(0)": 320
+      },
+      "situations": 927,
+      "violated": 320
+    },
+    {
+      "situations": 607,
+      "violated": 0
+    }
+  ],
+  "ocel": "p2p.xml.gz",
+  "tree": {
+    "edgeNames": [
+      [
+        [
+          0,
+          1
+        ],
+        "A"
+      ]
+    ],
+    "nodes": [
+      {
+        "Box": [
+          {
+            "constraints": [
+              {
+                "filter": {
+                  "child_name": "A",
+                  "max": 1,
+                  "min": 1,
+                  "type": "NumChilds"
+                },
+                "type": "SizeFilter"
+              }
+            ],
+            "filters": [],
+            "newEventVars": {},
+            "newObjectVars": {
+              "0": [
+                "purchase_requisition"
+              ]
+            },
+            "sizeFilters": []
+          },
+          [
+            1
+          ]
+        ]
+      },
+      {
+        "Box": [
+          {
+            "constraints": [],
+            "filters": [
+              {
+                "event": 0,
+                "object": 0,
+                "qualifier": null,
+                "type": "O2E"
+              }
+            ],
+            "newEventVars": {
+              "0": [
+                "Approve Purchase Requisition"
+              ]
+            },
+            "newObjectVars": {},
+            "sizeFilters": []
+          },
+          []
+        ]
+      }
+    ]
+  }
+}

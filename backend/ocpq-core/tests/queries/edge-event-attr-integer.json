@@ -1,0 +1,48 @@
+{
+  "description": "Integer event-attribute filter: every `place` must book at least 100. e6 books 50.",
+  "expected": [
+    {
+      "reasons": {
+        "ConstraintNotSatisfied(0)": 1
+      },
+      "situations": 4,
+      "violated": 1
+    }
+  ],
+  "ocel": "edge-cases.json",
+  "tree": {
+    "edgeNames": [],
+    "nodes": [
+      {
+        "Box": [
+          {
+            "constraints": [
+              {
+                "filter": {
+                  "attribute_name": "amount",
+                  "event": 0,
+                  "type": "EventAttributeValueFilter",
+                  "value_filter": {
+                    "max": null,
+                    "min": 100,
+                    "type": "Integer"
+                  }
+                },
+                "type": "Filter"
+              }
+            ],
+            "filters": [],
+            "newEventVars": {
+              "0": [
+                "place"
+              ]
+            },
+            "newObjectVars": {},
+            "sizeFilters": []
+          },
+          []
+        ]
+      }
+    ]
+  }
+}

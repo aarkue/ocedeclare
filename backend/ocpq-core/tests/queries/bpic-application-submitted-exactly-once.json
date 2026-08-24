@@ -1,0 +1,88 @@
+{
+  "description": "Every Application has exactly one A_Submitted event. NumChilds 1..1 over an E2O child. (eval-repo Q1)",
+  "expected": [
+    {
+      "reasons": {
+        "ConstraintNotSatisfied(0)": 11086
+      },
+      "situations": 31509,
+      "violated": 11086
+    },
+    {
+      "situations": 20423,
+      "violated": 0
+    }
+  ],
+  "ocel": "bpic2017.xml.gz",
+  "tree": {
+    "edgeNames": [
+      [
+        [
+          0,
+          1
+        ],
+        "A"
+      ]
+    ],
+    "nodes": [
+      {
+        "Box": [
+          {
+            "constraints": [
+              {
+                "filter": {
+                  "child_name": "A",
+                  "max": 1,
+                  "min": 1,
+                  "type": "NumChilds"
+                },
+                "type": "SizeFilter"
+              }
+            ],
+            "evVarLabels": {},
+            "filters": [],
+            "labels": [],
+            "newEventVars": {},
+            "newObjectVars": {
+              "0": [
+                "Application"
+              ]
+            },
+            "obVarLabels": {},
+            "sizeFilters": []
+          },
+          [
+            1
+          ]
+        ]
+      },
+      {
+        "Box": [
+          {
+            "constraints": [],
+            "evVarLabels": {},
+            "filters": [
+              {
+                "event": 0,
+                "filterLabel": null,
+                "object": 0,
+                "qualifier": null,
+                "type": "O2E"
+              }
+            ],
+            "labels": [],
+            "newEventVars": {
+              "0": [
+                "A_Submitted"
+              ]
+            },
+            "newObjectVars": {},
+            "obVarLabels": {},
+            "sizeFilters": []
+          },
+          []
+        ]
+      }
+    ]
+  }
+}

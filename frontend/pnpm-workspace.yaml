@@ -5,3 +5,7 @@ allowBuilds:
 ignoredBuiltDependencies:
   - es5-ext
   - esbuild
+
+minimumReleaseAge: 1440
+minimumReleaseAgeExclude:
+  - '@r4pm/components'

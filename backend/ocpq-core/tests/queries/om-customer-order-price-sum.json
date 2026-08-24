@@ -1,0 +1,79 @@
+{
+  "description": "Customers whose orders sum to at least 300000 in price. Covers AdvancedCEL aggregating over a child binding set, reached through an O2O filter.",
+  "expected": [
+    {
+      "reasons": {
+        "ConstraintNotSatisfied(0)": 6
+      },
+      "situations": 15,
+      "violated": 6
+    },
+    {
+      "situations": 2000,
+      "violated": 0
+    }
+  ],
+  "ocel": "order-management.xml.gz",
+  "tree": {
+    "edgeNames": [
+      [
+        [
+          0,
+          1
+        ],
+        "A"
+      ]
+    ],
+    "nodes": [
+      {
+        "Box": [
+          {
+            "constraints": [
+              {
+                "filter": {
+                  "cel": "A.map(b, b['o2'].attr('price')).sum() >= 300000",
+                  "type": "AdvancedCEL"
+                },
+                "type": "SizeFilter"
+              }
+            ],
+            "filters": [],
+            "newEventVars": {},
+            "newObjectVars": {
+              "0": [
+                "customers"
+              ]
+            },
+            "sizeFilters": []
+          },
+          [
+            1
+          ]
+        ]
+      },
+      {
+        "Box": [
+          {
+            "constraints": [],
+            "filters": [
+              {
+                "object": 0,
+                "other_object": 1,
+                "qualifier": null,
+                "type": "O2O"
+              }
+            ],
+            "newEventVars": {},
+            "newObjectVars": {
+              "1": [
+                "orders"
+              ]
+            },
+            "sizeFilters": []
+          },
+          []
+        ]
+      }
+    ]
+  }
+}

@@ -6,11 +6,11 @@ import type {
 	OCDeclareArcLabel,
 } from "@r4pm/components";
 import { OCDeclareViz } from "@r4pm/components";
-import { elkDeclareLayout } from "@r4pm/components/elk-layout";
 import type { Edge, Node, ReactFlowJsonObject, Viewport } from "@xyflow/react";
 import { useCallback, useMemo, useRef, useState } from "react";
 import { R4pmIsland } from "@/components/r4pm/R4pmIsland";
 import { useBackend, useOcelInfo, useOcelStats } from "@/hooks";
+import { OCDeclareLayoutSettingsPopover, useOCDeclareLayoutSettings } from "./layout-settings";
 
 type PersistedNodeData = { type: string; isObject?: "init" | "exit" };
 type PersistedEdgeData = {
@@ -104,9 +104,11 @@ export default function OCDeclareEditor({
 	const modelRef = useRef(model);
 	modelRef.current = model;
 	const viewportRef = useRef<Viewport>(initialFlowJson?.viewport ?? DEFAULT_VIEWPORT);
+	const { settings, setSettings, layout, activityColor } = useOCDeclareLayoutSettings();
 
-	const eventTypes = ocelInfo?.event_types.map((t) => t.name) ?? [];
-	const objectTypes = ocelInfo?.object_types.map((t) => t.name) ?? [];
+	// Stable identities: the viz rebuilds its edit context (and every node/edge with it) whenever a prop changes.
+	const eventTypes = useMemo(() => ocelInfo?.event_types.map((t) => t.name) ?? [], [ocelInfo]);
+	const objectTypes = useMemo(() => ocelInfo?.object_types.map((t) => t.name) ?? [], [ocelInfo]);
 
 	const activityInvolvements = useMemo(() => {
 		if (!ocelInfo?.activity_involvements) return undefined;
@@ -146,43 +148,78 @@ export default function OCDeclareEditor({
 		[ocelInfo],
 	);
 
-	const handleChange = (next: DeclareFlowModel) => {
-		setModel(next);
-		onChange(modelToFlow(next, viewportRef.current));
-	};
-	const handleViewportChange = (viewport: Viewport) => {
-		viewportRef.current = viewport;
-		onChange(modelToFlow(modelRef.current, viewport));
-	};
+	const handleChange = useCallback(
+		(next: DeclareFlowModel) => {
+			setModel(next);
+			onChange(modelToFlow(next, viewportRef.current));
+		},
+		[onChange],
+	);
+	const handleViewportChange = useCallback(
+		(viewport: Viewport) => {
+			viewportRef.current = viewport;
+			onChange(modelToFlow(modelRef.current, viewport));
+		},
+		[onChange],
+	);
+
+	const onProjectActivities = useCallback<(typeof backend)["ocel/project-oc-declare-arcs"]>(
+		(arcs, activities) => backend["ocel/project-oc-declare-arcs"](arcs, activities),
+		[backend],
+	);
+	const onDiscover = useCallback(
+		(o: unknown) =>
+			backend["ocel/discover-oc-declare"](
+				o as Parameters<(typeof backend)["ocel/discover-oc-declare"]>[0],
+			),
+		[backend],
+	);
+	const onEvaluate = useCallback<(typeof backend)["ocel/evaluate-oc-declare-arcs"]>(
+		(arcs) => backend["ocel/evaluate-oc-declare-arcs"](arcs),
+		[backend],
+	);
+	const onActivityStatistics = useCallback<(typeof backend)["ocel/get-activity-statistics"]>(
+		(activity) => backend["ocel/get-activity-statistics"](activity),
+		[backend],
+	);
+	const onEdgeStatistics = useCallback<(typeof backend)["ocel/get-oc-declare-edge-statistics"]>(
+		(arc) => backend["ocel/get-oc-declare-edge-statistics"](arc),
+		[backend],
+	);
+	const onTemplateString = useCallback<(typeof backend)["oc-declare/template-string"]>(
+		(arcs) => backend["oc-declare/template-string"](arcs),
+		[backend],
+	);
 
 	return (
-		<R4pmIsland className="w-full h-full">
-			<OCDeclareViz
-				editable
-				value={model}
-				onChange={handleChange}
-				defaultViewport={initialFlowJson?.viewport}
-				onViewportChange={handleViewportChange}
-				eventTypes={eventTypes}
-				objectTypes={objectTypes}
-				relatedTypes={relatedTypes}
-				activityInvolvements={activityInvolvements}
-				eventTypeCounts={ocelStats?.event_type_counts}
-				getSupport={getSupport}
-				onProjectActivities={(arcs, activities) =>
-					backend["ocel/project-oc-declare-arcs"](arcs, activities)
-				}
-				layoutOverride={elkDeclareLayout}
-				onDiscover={(o) =>
-					backend["ocel/discover-oc-declare"](
-						o as Parameters<(typeof backend)["ocel/discover-oc-declare"]>[0],
-					)
-				}
-				onEvaluate={(arcs) => backend["ocel/evaluate-oc-declare-arcs"](arcs)}
-				onActivityStatistics={(activity) => backend["ocel/get-activity-statistics"](activity)}
-				onEdgeStatistics={(arc) => backend["ocel/get-oc-declare-edge-statistics"](arc)}
-				onTemplateString={(arcs) => backend["oc-declare/template-string"](arcs)}
-			/>
-		</R4pmIsland>
+		<div className="relative w-full h-full">
+			<R4pmIsland className="w-full h-full">
+				<OCDeclareViz
+					editable
+					value={model}
+					onChange={handleChange}
+					defaultViewport={initialFlowJson?.viewport}
+					onViewportChange={handleViewportChange}
+					eventTypes={eventTypes}
+					objectTypes={objectTypes}
+					relatedTypes={relatedTypes}
+					activityInvolvements={activityInvolvements}
+					eventTypeCounts={ocelStats?.event_type_counts}
+					getSupport={getSupport}
+					onProjectActivities={onProjectActivities}
+					layoutOverride={layout}
+					activityColor={activityColor}
+					relayoutOnChange={settings.relayoutOnChange}
+					onDiscover={onDiscover}
+					onEvaluate={onEvaluate}
+					onActivityStatistics={onActivityStatistics}
+					onEdgeStatistics={onEdgeStatistics}
+					onTemplateString={onTemplateString}
+				/>
+			</R4pmIsland>
+			<div className="absolute top-2 right-2 z-10">
+				<OCDeclareLayoutSettingsPopover settings={settings} setSettings={setSettings} />
+			</div>
+		</div>
 	);
 }
